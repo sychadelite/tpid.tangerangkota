@@ -49,11 +49,24 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | Examples:	my-controller/index	-> my_controller/index
 |		my-controller/my-method	-> my_controller/my_method
 */
-$route['default_controller'] = 'home';
+$route['default_controller'] = 'main/home';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
-// moduler based routes
-$route['struktur-organisasi'] = 'struktur_organisasi';
-$route['visi-misi'] = 'visi_misi';
-$route['tugas-utama'] = 'tugas_utama';
+// modular based routes
+$route['about'] = 'main/about';
+$route['visi-misi'] = 'main/visimisi';
+$route['tugas-utama'] = 'main/tugasutama';
+$route['struktur-organisasi'] = 'main/strukturorganisasi';
+
+$route['kegiatan'] = 'main/kegiatan';
+$route['kegiatan/group/(:any)'] = 'main/kegiatan/group/$1';
+$route['kegiatan/detail/(:any)'] = 'main/kegiatan/detail/$1';
+
+$route['pengumuman'] = 'main/pengumuman';
+$route['pengumuman/group/(:any)'] = 'main/pengumuman/group/$1';
+$route['pengumuman/detail/(:any)'] = 'main/pengumuman/detail/$1';
+
+$route['galeri'] = 'main/galeri';
+
+$route['harga-komoditas'] = 'main/komoditas/harga_komoditas';

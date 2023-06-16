@@ -7,10 +7,17 @@ class Template extends MY_Controller
     parent::__construct();
   }
 
-  public function loadTemplate($page_content = "", $data = [])
+  public function MainLayout($page_content = "", $data = [])
   {
     $data["page_content"] = $page_content;
 
-    $this->load->view("template/global_template", $data);
+    $this->load->view("template/main/index", $data);
+  }
+
+  public function AdminLayout($page_content = "", $data = [])
+  {
+    $data["page_content"] = $page_content;
+
+    $this->load->view("template/main/index", $data);
   }
 }
