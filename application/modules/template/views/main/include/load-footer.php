@@ -88,7 +88,7 @@
         <a class="text-white" href="https://mdbootstrap.com/">Web Terpadu <span class="text-secondary">Kota Tangerang</span></a>
       </p>
       <small>Page rendered in <strong><?php echo $this->benchmark->elapsed_time('total_execution_time_start', 'total_execution_time_end'); ?></strong> seconds.</small>
-      <?php echo  (ENVIRONMENT === 'development') ?  'CodeIgniter Version <strong>' . CI_VERSION . '</strong>' : '' ?>
+      <?php echo (ENVIRONMENT === 'development') ?  'CodeIgniter Version <strong>' . CI_VERSION . '</strong>' : '' ?>
     </div>
     <!-- Copyright -->
   </footer>
@@ -98,6 +98,13 @@
 
   <!-- MDB -->
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.js"></script>
-  <!-- Masonry -->
-  <script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D" crossorigin="anonymous" async></script>
+
+  <script>
+    // Create a new script element
+    var scriptMasonry = document.createElement('script');
+    // Set the source attribute to the JavaScript file you want to append
+    scriptMasonry.src = 'https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js';
+    // Append the script element to the head section of the document
+    document.head.appendChild(scriptMasonry);
+  </script>
 </section>

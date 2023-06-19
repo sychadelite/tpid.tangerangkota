@@ -144,75 +144,73 @@
     </div>
 
     <!-- Collapsed Content -->
-    <div class="collapse w-100 d-md-none" id="navbarToggleExternalContent" style="max-height: 20rem; overflow: auto;">
-      <div class="p-2">
-        <div class="accordion accordion-borderless" id="accordionFlushTopnav">
-          <div class="accordion-item my-2">
-            <h2 class="accordion-header" id="flush-heading-home">
-              <a href="/" class="accordion-button <?= uri_string() === '' ? 'active' : '' ?> collapsed text-white" type="button">
-                Beranda
+    <div class="collapse w-100 d-md-none p-2" id="navbarToggleExternalContent" style="max-height: 75vh; overflow: auto;">
+      <div class="accordion accordion-borderless" id="accordionFlushTopnav">
+        <div class="accordion-item my-2">
+          <h2 class="accordion-header" id="flush-heading-home">
+            <a href="/" class="accordion-button <?= uri_string() === '' ? 'active' : '' ?> collapsed text-white" type="button">
+              Beranda
+            </a>
+          </h2>
+        </div>
+        <div class="accordion-item my-2">
+          <h2 class="accordion-header" id="flush-heading-profile">
+            <button class="accordion-button collapsed text-white" type="button" data-mdb-toggle="collapse" data-mdb-target="#flush-collapse-profile" aria-expanded="false" aria-controls="flush-collapse-profile">
+              Profil
+            </button>
+          </h2>
+          <div id="flush-collapse-profile" class="accordion-collapse collapse" aria-labelledby="flush-heading-profile" data-mdb-parent="#accordionFlushTopnav">
+            <div class="accordion-body text-white py-0 px-3">
+              <a href="/about" class="accordion-button <?= uri_string() === 'about' ? 'active' : '' ?> collapsed text-white my-2" type="button">
+                Tentang Kami
               </a>
-            </h2>
-          </div>
-          <div class="accordion-item my-2">
-            <h2 class="accordion-header" id="flush-heading-profile">
-              <button class="accordion-button collapsed text-white" type="button" data-mdb-toggle="collapse" data-mdb-target="#flush-collapse-profile" aria-expanded="false" aria-controls="flush-collapse-profile">
-                Profil
-              </button>
-            </h2>
-            <div id="flush-collapse-profile" class="accordion-collapse collapse" aria-labelledby="flush-heading-profile" data-mdb-parent="#accordionFlushTopnav">
-              <div class="accordion-body text-white py-0 px-3">
-                <a href="/about" class="accordion-button <?= uri_string() === 'about' ? 'active' : '' ?> collapsed text-white my-2" type="button">
-                  Tentang Kami
-                </a>
-                <a href="/visi-misi" class="accordion-button <?= uri_string() === 'visi-misi' ? 'active' : '' ?> collapsed text-white my-2" type="button">
-                  Visi Misi
-                </a>
-                <a href="/tugas-utama" class="accordion-button <?= uri_string() === 'tugas-utama' ? 'active' : '' ?> collapsed text-white my-2" type="button">
-                  Tugas Utama
-                </a>
-                <a href="/struktur-organisasi" class="accordion-button <?= uri_string() === 'struktur-organisasi' ? 'active' : '' ?> collapsed text-white my-2" type="button">
-                  Struktur Organisasi
-                </a>
-              </div>
+              <a href="/visi-misi" class="accordion-button <?= uri_string() === 'visi-misi' ? 'active' : '' ?> collapsed text-white my-2" type="button">
+                Visi Misi
+              </a>
+              <a href="/tugas-utama" class="accordion-button <?= uri_string() === 'tugas-utama' ? 'active' : '' ?> collapsed text-white my-2" type="button">
+                Tugas Utama
+              </a>
+              <a href="/struktur-organisasi" class="accordion-button <?= uri_string() === 'struktur-organisasi' ? 'active' : '' ?> collapsed text-white my-2" type="button">
+                Struktur Organisasi
+              </a>
             </div>
           </div>
-          <div class="accordion-item my-2">
-            <h2 class="accordion-header" id="flush-heading-news">
-              <button class="accordion-button collapsed text-white" type="button" data-mdb-toggle="collapse" data-mdb-target="#flush-collapse-news" aria-expanded="false" aria-controls="flush-collapse-news">
-                Berita
-              </button>
-            </h2>
-            <div id="flush-collapse-news" class="accordion-collapse collapse" aria-labelledby="flush-heading-news" data-mdb-parent="#accordionFlushTopnav">
-              <div class="accordion-body text-white py-0 px-3">
-                <a href="/pengumuman" class="accordion-button <?= uri_string() === 'pengumuman' ? 'active' : '' ?> collapsed text-white my-2" type="button">
-                  Pengumuman
-                </a>
-                <a href="/kegiatan" class="accordion-button <?= uri_string() === 'kegiatan' ? 'active' : '' ?> collapsed text-white my-2" type="button">
-                  Kegiatan
-                </a>
-              </div>
+        </div>
+        <div class="accordion-item my-2">
+          <h2 class="accordion-header" id="flush-heading-news">
+            <button class="accordion-button collapsed text-white" type="button" data-mdb-toggle="collapse" data-mdb-target="#flush-collapse-news" aria-expanded="false" aria-controls="flush-collapse-news">
+              Berita
+            </button>
+          </h2>
+          <div id="flush-collapse-news" class="accordion-collapse collapse" aria-labelledby="flush-heading-news" data-mdb-parent="#accordionFlushTopnav">
+            <div class="accordion-body text-white py-0 px-3">
+              <a href="/pengumuman" class="accordion-button <?= uri_string() === 'pengumuman' ? 'active' : '' ?> collapsed text-white my-2" type="button">
+                Pengumuman
+              </a>
+              <a href="/kegiatan" class="accordion-button <?= uri_string() === 'kegiatan' ? 'active' : '' ?> collapsed text-white my-2" type="button">
+                Kegiatan
+              </a>
             </div>
           </div>
-          <div class="accordion-item my-2">
-            <h2 class="accordion-header" id="flush-heading-gallery">
-              <a href="/galeri" class="accordion-button <?= uri_string() === 'galeri' ? 'active' : '' ?> collapsed text-white" type="button">
-                Galeri
+        </div>
+        <div class="accordion-item my-2">
+          <h2 class="accordion-header" id="flush-heading-gallery">
+            <a href="/galeri" class="accordion-button <?= uri_string() === 'galeri' ? 'active' : '' ?> collapsed text-white" type="button">
+              Galeri
+            </a>
+          </h2>
+        </div>
+        <div class="accordion-item my-2">
+          <h2 class="accordion-header" id="flush-heading-commodity">
+            <button class="accordion-button collapsed text-white" type="button" data-mdb-toggle="collapse" data-mdb-target="#flush-collapse-commodity" aria-expanded="false" aria-controls="flush-collapse-commodity">
+              Komoditas
+            </button>
+          </h2>
+          <div id="flush-collapse-commodity" class="accordion-collapse collapse" aria-labelledby="flush-heading-commodity" data-mdb-parent="#accordionFlushTopnav">
+            <div class="accordion-body text-white py-0 px-3">
+              <a href="/harga-komoditas" class="accordion-button <?= uri_string() === 'harga-komoditas' ? 'active' : '' ?> collapsed text-white my-2" type="button">
+                Harga Komoditas
               </a>
-            </h2>
-          </div>
-          <div class="accordion-item my-2">
-            <h2 class="accordion-header" id="flush-heading-commodity">
-              <button class="accordion-button collapsed text-white" type="button" data-mdb-toggle="collapse" data-mdb-target="#flush-collapse-commodity" aria-expanded="false" aria-controls="flush-collapse-commodity">
-                Komoditas
-              </button>
-            </h2>
-            <div id="flush-collapse-commodity" class="accordion-collapse collapse" aria-labelledby="flush-heading-commodity" data-mdb-parent="#accordionFlushTopnav">
-              <div class="accordion-body text-white py-0 px-3">
-                <a href="/harga-komoditas" class="accordion-button <?= uri_string() === 'harga-komoditas' ? 'active' : '' ?> collapsed text-white my-2" type="button">
-                  Harga Komoditas
-                </a>
-              </div>
             </div>
           </div>
         </div>

@@ -11,7 +11,7 @@
   </div>
 </nav>
 <section class="position-relative d-flex flex-column align-items-center justify-content-start min-vh-100 text-dark">
-  <div class="wrapper px-1 py-5 px-sm-5">
+  <div class="wrapper px-1 py-5 px-lg-5">
     <div class="container text-center mt-4">
       <div class="row align-items-start gap-5">
         <div class="col text-start">
@@ -149,7 +149,7 @@
               </div>
               <!-- END Drawer -->
 
-              <div class="position-relative p-3 w-100 min-vh-100">
+              <div class="position-relative w-100 min-vh-100">
                 <div class="mt-4">
                   <!-- Pills navs -->
                   <ul class="nav nav-pills nav-fill mb-3" id="ex1" role="tablist">
@@ -175,40 +175,26 @@
                   <div class="tab-content" id="ex2-content">
                     <div class="tab-pane fade show active" id="ex2-pills-1" role="tabpanel" aria-labelledby="ex2-tab-1">
                       <div class="position-relative d-flex flex-column justify-content-center align-items-start mt-4">
-                        <div class="d-flex flex-wrap justify-content-end align-items-center gap-4 w-100 mb-4">
+                        <div class="d-flex flex-wrap justify-content-between align-items-center gap-4 w-100 mb-4">
                           <button id="btn-filter-komoditas" class="btn btn-primary z-1" onclick="toggleDrawer()">
                             <i class="fa-solid fa-filter me-2"></i>
                             Filter Komoditas
                           </button>
+                          <div class="input-group search-box w-fit">
+                            <div class="form-outline">
+                              <input type="search" id="input_search_box_table_harga_komoditas" class="form-control" />
+                              <label class="form-label" for="input_search_box_table_harga_komoditas">Search</label>
+                            </div>
+                            <button type="button" class="btn btn-primary" id="btn_search_box_table_harga_komoditas">
+                              <i class="fas fa-search"></i>
+                            </button>
+                          </div>
                         </div>
-                        <table id="table_harga_komoditas" class="stripe row-border order-column w-100">
-                          <thead>
-                            <tr>
-                              <th colspan="14" class="group-header" style="text-align: center; border-top: 1px solid rgba(0, 0, 0, 0.3); border-bottom: none;">Bulan Juni 2023</th>
-                            </tr>
-                            <tr>
-                              <th colspan="1" class="group-header" style="text-align: center; border-top: 1px solid rgba(0, 0, 0, 0.3); border-right: 1px solid rgba(0, 0, 0, 0.3);"></th>
-                              <th colspan="2" class="group-header" style="text-align: center; border-top: 1px solid rgba(0, 0, 0, 0.3); border-right: 1px solid rgba(0, 0, 0, 0.3);">Komoditas</th>
-                              <th colspan="7" class="group-header" style="text-align: center; border-top: 1px solid rgba(0, 0, 0, 0.3); border-right: 1px solid rgba(0, 0, 0, 0.3);">Pasar</th>
-                              <th colspan="11" class="group-header" style="text-align: center; border-top: 1px solid rgba(0, 0, 0, 0.3);"></th>
-                            </tr>
-                            <tr>
-                              <th>#</th>
-                              <th>Nama</th>
-                              <th>Satuan</th>
-                              <th>11</th>
-                              <th>12</th>
-                              <th>13</th>
-                              <th>14</th>
-                              <th>15</th>
-                              <th>16</th>
-                              <th>17</th>
-                              <th>Bulan Sebelumnya</th>
-                              <th>Bulan Ini</th>
-                              <th>(Rp)</th>
-                              <th>(%)</th>
-                            </tr>
-                          </thead>
+                        <div class="w-100 border border-bottom-0">
+                          <h5 class="m-0 fw-bold w-100"><span class="badge badge-light w-100 px-3 py-2"><i class="fa-solid fa-calendar-week me-2"></i>Bulan Juli 2023</span></h5>
+                        </div>
+                        <table id="table_harga_komoditas" class="stripe header-border cell-border row-border order-column hover w-100">
+                          <thead></thead>
                           <tbody></tbody>
                         </table>
                       </div>
@@ -236,60 +222,162 @@
 </section>
 
 <script>
+  var dataTableHargaKomoditas;
+
   $(document).ready(function() {
-    const rowData = [
-      ["1", "John", "Doe", "Manager", "New York", "35", "2022-01-01", "$100,000", "123", "john.doe@example.com", "", "", "", ""],
-      ["2", "Jane", "Smith", "Engineer", "San Francisco", "28", "2022-02-15", "$85,000", "456", "jane.smith@example.com", "", "", "", ""],
-      ["3", "John", "Doe", "Manager", "New York", "35", "2022-01-01", "$100,000", "123", "john.doe@example.com", "", "", "", ""],
-      ["4", "Jane", "Smith", "Engineer", "San Francisco", "28", "2022-02-15", "$85,000", "456", "jane.smith@example.com", "", "", "", ""],
-      ["5", "John", "Doe", "Manager", "New York", "35", "2022-01-01", "$100,000", "123", "john.doe@example.com", "", "", "", ""],
-      ["6", "Jane", "Smith", "Engineer", "San Francisco", "28", "2022-02-15", "$85,000", "456", "jane.smith@example.com", "", "", "", ""],
-      ["7", "John", "Doe", "Manager", "New York", "35", "2022-01-01", "$100,000", "123", "john.doe@example.com", "", "", "", ""],
-      ["8", "Jane", "Smith", "Engineer", "San Francisco", "28", "2022-02-15", "$85,000", "456", "jane.smith@example.com", "", "", "", ""],
-      ["9", "John", "Doe", "Manager", "New York", "35", "2022-01-01", "$100,000", "123", "john.doe@example.com", "", "", "", ""],
-      ["10", "Jane", "Smith", "Engineer", "San Francisco", "28", "2022-02-15", "$85,000", "456", "jane.smith@example.com", "", "", "", ""],
-      ["11", "John", "Doe", "Manager", "New York", "35", "2022-01-01", "$100,000", "123", "john.doe@example.com", "", "", "", ""],
-      ["12", "Jane", "Smith", "Engineer", "San Francisco", "28", "2022-02-15", "$85,000", "456", "jane.smith@example.com", "", "", "", ""],
-      ["13", "John", "Doe", "Manager", "New York", "35", "2022-01-01", "$100,000", "123", "john.doe@example.com", "", "", "", ""],
-      ["14", "Jane", "Smith", "Engineer", "San Francisco", "28", "2022-02-15", "$85,000", "456", "jane.smith@example.com", "", "", "", ""],
-      ["15", "John", "Doe", "Manager", "New York", "35", "2022-01-01", "$100,000", "123", "john.doe@example.com", "", "", "", ""],
-      ["16", "Jane", "Smith", "Engineer", "San Francisco", "28", "2022-02-15", "$85,000", "456", "jane.smith@example.com", "", "", "", ""],
-      // Add more rows as needed
+    initDataTable();
+  });
+
+  $(window).on('resize', function() {
+    dataTableHargaKomoditas.columns.adjust(); // Adjust the column widths on window resize
+  });
+
+  function initDataTable() {
+    const groupHeadData = [
+      { text: 'No', colspan: 1, rowspan: 2, className: 'group-header text-center', style: 'text-align: center; border-top: 1px solid rgba(0, 0, 0, 0.3); border-right: 1px solid rgba(0, 0, 0, 0.3);' },
+      { text: 'Komoditas', colspan: 2, rowspan: 1, className: 'group-header text-center', style: 'text-align: center; border-top: 1px solid rgba(0, 0, 0, 0.3); border-right: 1px solid rgba(0, 0, 0, 0.3);' },
+      { text: 'Pasar', colspan: 31, rowspan: 1, className: 'group-header text-center', style: 'text-align: center; border-top: 1px solid rgba(0, 0, 0, 0.3); border-right: 1px solid rgba(0, 0, 0, 0.3);' },
+      { text: 'Rata-Rata', colspan: 2, rowspan: 1, className: 'group-header text-center', style: 'text-align: center; border-top: 1px solid rgba(0, 0, 0, 0.3); border-right: 1px solid rgba(0, 0, 0, 0.3);' },
+      { text: 'Perubahan', colspan: 2, rowspan: 1, className: 'group-header text-center', style: 'text-align: center; border-top: 1px solid rgba(0, 0, 0, 0.3);' },
     ];
 
-    var table = $('#table_harga_komoditas').DataTable({
-      scrollY: "400px",
+    const colHeadData = [
+      { text: 'Nama', colspan: 1, rowspan: 1 },
+      { text: 'Satuan', colspan: 1, rowspan: 1 },
+      { text: 'Anyar', colspan: 1, rowspan: 1 },
+      { text: 'Bandeng', colspan: 1, rowspan: 1 },
+      { text: 'Cibodas', colspan: 1, rowspan: 1 },
+      { text: 'Gerendeng', colspan: 1, rowspan: 1 },
+      { text: 'Grand Duta', colspan: 1, rowspan: 1 },
+      { text: 'Jatake', colspan: 1, rowspan: 1 },
+      { text: 'Laris Cibodas', colspan: 1, rowspan: 1 },
+      { text: 'Malabar', colspan: 1, rowspan: 1 },
+      { text: 'Jajanan Cisadane Walk', colspan: 1, rowspan: 1 },
+      { text: 'Jajanan Gajah Tunggal', colspan: 1, rowspan: 1 },
+      { text: 'Jajanan Jembatan Berendeng', colspan: 1, rowspan: 1 },
+      { text: 'Jajanan Taman Potret', colspan: 1, rowspan: 1 },
+      { text: 'Jajanan Teras Cisadane', colspan: 1, rowspan: 1 },
+      { text: 'Lingkungan Periuk Jaya', colspan: 1, rowspan: 1 },
+      { text: 'Lingkungan Batuceper', colspan: 1, rowspan: 1 },
+      { text: 'Lingkungan Benda', colspan: 1, rowspan: 1 },
+      { text: 'Lingkungan Cibodas Baru', colspan: 1, rowspan: 1 },
+      { text: 'Lingkungan Cimone', colspan: 1, rowspan: 1 },
+      { text: 'Lingkungan Cipondoh Indah', colspan: 1, rowspan: 1 },
+      { text: 'Lingkungan Gebang Raya', colspan: 1, rowspan: 1 },
+      { text: 'Lingkungan Kunciran Indah', colspan: 1, rowspan: 1 },
+      { text: 'Lingkungan Larangan Utara', colspan: 1, rowspan: 1 },
+      { text: 'LIngkungan Manis Jaya', colspan: 1, rowspan: 1 },
+      { text: 'Lingkungan Nambo Jaya', colspan: 1, rowspan: 1 },
+      { text: 'Lingkungan Nusa Jaya', colspan: 1, rowspan: 1 },
+      { text: 'Lingkungan Pabuaran Tumpeng', colspan: 1, rowspan: 1 },
+      { text: 'Lingkungan Pasar Baru', colspan: 1, rowspan: 1 },
+      { text: 'Lingkungan Pondok Bahar', colspan: 1, rowspan: 1 },
+      { text: 'Lingkungan Sangiang Jaya', colspan: 1, rowspan: 1 },
+      { text: 'Poris Indah', colspan: 1, rowspan: 1 },
+      { text: 'Ramadhani', colspan: 1, rowspan: 1 },
+      { text: 'Bulan Sebelumnya', colspan: 1, rowspan: 1 },
+      { text: 'Bulan Ini', colspan: 1, rowspan: 1 },
+      { text: '(Rp)', colspan: 1, rowspan: 1 },
+      { text: '(%)', colspan: 1, rowspan: 1 },
+    ];
+
+    const bodyData = [
+      ["1", "Beras IR I", "kg", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "0", "0", "Rp. 0.00", "0%"],
+      ["2", "Beras IR II", "kg", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "0", "0", "Rp. 0.00", "0%"],
+      ["3", "Gula Pasir Impor", "kg", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "0", "0", "Rp. 0.00", "0%"],
+      ["4", "Gula Pasir Lokal", "kg", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "0", "0", "Rp. 0.00", "0%"],
+      ["5", "Minyak Goreng Bimoli", "liter", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "0", "0", "Rp. 0.00", "0%"],
+      ["6", "Minyak Goreng Curah", "liter", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "0", "0", "Rp. 0.00", "0%"],
+      ["7", "Daging Sapi", "kg", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "0", "0", "Rp. 0.00", "0%"],
+      ["8", "Daging Ayam Broiler", "ekor", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "0", "0", "Rp. 0.00", "0%"],
+      ["9", "Telur Ayam Broiler", "kg", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "0", "0", "Rp. 0.00", "0%"],
+      ["10", "Telur Ayam Kampung", "butir", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "0", "0", "Rp. 0.00", "0%"],
+      ["11", "Susu Kental Bendera (397 gr)", "kaleng", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "0", "0", "Rp. 0.00", "0%"],
+      ["12", "Susu Kental Indomilk (397 gr)", "kaleng", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "0", "0", "Rp. 0.00", "0%"],
+      ["13", "Garam Halus (250 gr)", "bks", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "0", "0", "Rp. 0.00", "0%"],
+      ["14", "Garam Bata", "kg", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "0", "0", "Rp. 0.00", "0%"],
+      ["15", "Tepung Terigu Segitiga Biru", "kg", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "0", "0", "Rp. 0.00", "0%"],
+      ["16", "Kacang Kedelai (Ext/Impor)", "kg", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "0", "0", "Rp. 0.00", "0%"],
+      ["17", "Mie Instant (Indomie)", "kg", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "0", "0", "Rp. 0.00", "0%"],
+      ["18", "Cabe Merah Keriting", "kg", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "0", "0", "Rp. 0.00", "0%"],
+      ["19", "Cabe Merah Biasa (TW)", "kg", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "0", "0", "Rp. 0.00", "0%"],
+      ["20", "Cabe Rawit Merah", "kg", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "0", "0", "Rp. 0.00", "0%"],
+      ["21", "Cabe Rawit Hijau", "kg", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "0", "0", "Rp. 0.00", "0%"],
+      ["22", "Bawang Merah", "kg", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "0", "0", "Rp. 0.00", "0%"],
+      ["23", "Bawang Putih", "kg", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "0", "0", "Rp. 0.00", "0%"],
+      ["24", "Ikan Asin Gabus", "kg", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "0", "0", "Rp. 0.00", "0%"],
+      ["25", "Ikan Asin Sepat", "kg", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "0", "0", "Rp. 0.00", "0%"],
+      ["26", "Ikan Tongkol", "kg", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "0", "0", "Rp. 0.00", "0%"],
+      ["27", "Ikan Tenggiri", "kg", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "0", "0", "Rp. 0.00", "0%"],
+      ["28", "Ikan Bandeng", "kg", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "0", "0", "Rp. 0.00", "0%"],
+      ["29", "Ikan Mujair", "kg", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "0", "0", "Rp. 0.00", "0%"],
+      ["30", "Kacang Hijau", "kg", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "0", "0", "Rp. 0.00", "0%"],
+      ["31", "Kacang Tanah", "kg", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "0", "0", "Rp. 0.00", "0%"],
+      ["32", "Kentang", "kg", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "0", "0", "Rp. 0.00", "0%"],
+      ["33", "Tomat", "kg", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "0", "0", "Rp. 0.00", "0%"],
+      ["34", "Jagung Tongkol", "kg", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "0", "0", "Rp. 0.00", "0%"],
+    ];
+
+    const thead = $('#table_harga_komoditas thead');
+    const trGroupHeader = $('<tr>');
+    const trColumnHeader = $('<tr>');
+
+    groupHeadData.forEach(header => {
+      const thGroupHeader = $('<th>', {
+        rowspan: header.rowspan,
+        colspan: header.colspan,
+        class: header.className,
+        style: header.style,
+      }).text(header.text);
+      trGroupHeader.append(thGroupHeader);
+    });
+
+    colHeadData.forEach(header => {
+      const thColumnHeader = $('<th>').text(header.text);
+      trColumnHeader.append(thColumnHeader);
+    });
+
+    thead.append(trGroupHeader, trColumnHeader);
+
+    dataTableHargaKomoditas = $('#table_harga_komoditas').DataTable({
+      dom: 'rtip', // Specify the desired layout: f - filter input, r - processing display element, t - table, i - table information summary, p - pagination control
+      scrollY: "300px",
       scrollX: true,
       scrollCollapse: true,
       paging: false,
       fixedColumns: {
-        left: 3,
-        right: 4
+        left: shouldEnableFixedColumns() ? 3 : 1,
+        right: shouldEnableFixedColumns() ? 4 : 0,
       },
       responsive: {
         details: false // Disable fixed columns on small screens
       },
-      columnDefs: [{
+      columnDefs: [
+        {
           targets: 0, // Target the first column
-          className: 'index-column', // Add a class to style the index column if desired
+          className: 'index-column dt-center', // Add a class to style the index column if desired
           render: function(data, type, row, meta) {
             return meta.row + 1; // Add 1 to the row index to start the numbering from 1
           }
         },
         {
+          targets: [1],
+          className: 'text-start',
+        },
+        {
           targets: '_all',
           className: 'dt-center'
-        }, // Add 'dt-center' class to center align all columns
+        },
       ],
-      data: rowData,
+      data: bodyData,
       drawCallback: function() {
         // Remove order icon from the first column header
-        $(this.api().table().header()).find('th:first-child').removeClass('sorting sorting_asc sorting_desc');
+        $(this.api().table().header()).find('th.group-header:first-child').removeClass('sorting sorting_asc sorting_desc');
       }
     });
 
     // Set the table wrapper width to 100%
-    $('#table_harga_komoditas_wrapper').css('width', '100%');
+    $('#table_harga_komoditas_wrapper').css({ 'width': '100%', 'font-size': '12px' });
 
     // Apply background color to fixed right column rows
     $('.dtfc-fixed-left, .dtfc-fixed-right').css({
@@ -297,13 +385,22 @@
       'z-index': '1'
     });
 
-    table.columns.adjust();
-
-    $(window).on('resize', function() {
-      table.columns.adjust(); // Adjust the column widths on window resize
+    // Custom search function
+    $('#input_search_box_table_harga_komoditas').keyup(function () {
+      dataTableHargaKomoditas.search($(this).val()).draw();
     });
-  });
 
+    $('#btn_search_box_table_harga_komoditas').on('click', function() {
+      const searchText = $('#input_search_box_table_harga_komoditas').val();
+      dataTableHargaKomoditas.search(searchText).draw();
+    });
+
+    dataTableHargaKomoditas.columns.adjust();
+  }
+
+  function shouldEnableFixedColumns() {
+    return $(window).width() > 1280; // Adjust the screen width breakpoint as needed
+  }
 
   function toggleDrawer() {
     if ($('.drawer').hasClass('show')) {
