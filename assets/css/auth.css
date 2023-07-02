@@ -1,0 +1,36 @@
+a {
+  text-decoration: none;
+}
+
+.login-page {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url('https://diskominfo.tangerangkota.go.id/assets/admin/img/login_web_opd.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.login-page .login-card {
+  background: rgba(255, 255, 255, 0.7);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.4);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border-radius: 40px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.login-page .login-card .login-card-sided {
+  background: rgba(0, 48, 132, 0.85);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.4);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border-radius: 40px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.form-right i {
+  font-size: 100px;
+}

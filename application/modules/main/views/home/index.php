@@ -1,17 +1,17 @@
 <section id="hero" class="position-relative min-vh-100 text-white">
   <!-- Carousel wrapper -->
-  <div id="carouselHeroHome" class="carousel slide carousel-fade min-vh-100 w-100" data-mdb-ride="carousel" data-mdb-interval="2000" data-mdb-pause="false">
+  <div id="carouselHeroHome" class="carousel slide carousel-fade min-vh-100 w-100" data-mdb-ride="carousel" data-mdb-interval="3000" data-mdb-pause="false">
     <!-- Inner -->
     <div class="carousel-inner min-vh-100">
       <!-- Single item -->
-      <?php for ($i = 0; $i < 3; $i++) { ?>
+      <?php foreach ($content['data_all_banner'] as $key => $row) { ?>
         <div class="carousel-item min-vh-100 active">
           <div class="overlay"></div>
           <div class="overlay-hero">
             <!-- <div class="overlay-pattern"></div> -->
           </div>
           <img src="/assets/pattern/circle.svg" class="overlay-pattern" alt="pattern-circle" />
-          <img src="https://diskominfo.tangerangkota.go.id/assets/uploads/news_20230531_1685521500.jpeg" class="hero-image position-absolute d-block" alt="Sunset Over the City" />
+          <img src="/assets/img/<?= $row->image ?>" class="hero-image position-absolute d-block" alt="Sunset Over the City" />
           <div class="carousel-caption">
             <div class="caption-wrapper">
               <div>
@@ -19,7 +19,11 @@
                   <h1 class="hero-title">Selamat Datang,</h1>
                   <p>Lihat Informasi Terbaru Dari Tim Pengendalian Inflasi Daerah Kota Tangerang</p>
                 </div>
-                <button type="button" class="btn bg-secondary text-white btn-rounded mt-5 py-3 px-5 fs-6" data-mdb-ripple-color="dark">Cek Disini</button>
+                <a href="#simple-about">
+                  <button type="button" class="btn bg-secondary text-white btn-rounded mt-5 py-3 px-5 fs-6" data-mdb-ripple-color="dark">
+                    Cek Disini
+                  </button>
+                </a>
               </div>
               <div>
                 <a href="#" class="icon-link"><img src="/assets/icons/instagram.svg" alt="instagram"></a>
@@ -70,25 +74,28 @@
 <section id="main-news" class="position-relative d-flex flex-column align-items-start justify-content-center text-dark my-4">
   <div class="title-frame">
     <h2>berita</h2>
-    <p>Seluruh Berita TPID</p>
+    <p>Berita Terbaru TPID</p>
   </div>
   <div class="wrapper px-1 py-5 px-sm-5">
     <div class="container">
       <div class="position-relative card mb-3 w-100" style="background-color: #EBEBEB; min-height: 14rem;">
         <div class="row g-0 h-100">
           <div class="col-md-6">
-            <img src="/assets/img/berita-1.png" alt="Trendy Pants and Shoes" class="img-fluid rounded-start" />
+            <img src="<?= $content['data_latest_berita']->cover ?>" alt="Trendy Pants and Shoes" class="img-fluid rounded-start" />
           </div>
           <div class="col-md-6">
             <div class="card-body d-flex flex-column justify-content-between h-100">
               <div>
-                <h5 class="card-title fw-bolder">TPID Kota Tangerang Pantau Harga di Pasar Tradisional dan Pasar Modern Jelang Lebaran</h5>
-                <p class="card-text">
-                  TANGERANG - Pemerintah Kota (Pemkot) Tangerang melakukan monitoring ke Pasar Tradisional Tigaraksa dan Farmers Market Mall Ciputra pada Selasa, (11/04/2023). Monitoring ini dilakukan dalam rangka menjaga ketersediaan dan keterjangkauan harga bahan pokok menjelang Hari Raya Idul Fitri,&nbsp;Tim Pengendalian Inflasi Daerah (TPID) ...
-                </p>
+                <h5 class="card-title fw-bolder"><?= $content['data_latest_berita']->title ?></h5>
+
+                <div class="line-clamp">
+                  <p class="card-text">
+                    <?= $content['data_latest_berita']->description ?>
+                  </p>
+                </div>
               </div>
               <p class="card-text text-end">
-                <small class="text-muted">Last updated 3 mins ago</small>
+                <small class="text-muted">Terakhir diperbarui <?= get_human_readable_time_diff($content['data_latest_berita']->created_at) ?></small>
               </p>
             </div>
           </div>
@@ -97,17 +104,20 @@
       <div class="mt-5">
         <h4 class="fw-bold text-uppercase mb-4">berita lainnya</h4>
         <div class="d-flex flex-wrap justify-content-evenly gap-5">
-          <?php for ($i = 0; $i < 3; $i++) {
-            $randNum = rand(1, 4); ?>
-            <a href="/kegiatan/detail/pb-1">
+          <?php foreach ($content['data_all_berita'] as $key => $row) { ?>
+            <a href="/<?= $row->category_name ?>/detail/<?= $row->slug ?>">
               <div class="card card-item text-white">
-                <figure><img src="/assets/img/berita-<?= $randNum ?>.png" class="card-img" alt="Stony Beach" height="100%" /></figure>
+                <figure><img src="<?= $row->cover ?>" class="card-img" alt="Stony Beach" height="100%" /></figure>
                 <div class="overlay-bottom"></div>
-                <h6 class="position-absolute mt-0 card-title"><span class="badge badge-primary" style="border-radius: 0rem 0rem 1rem 0rem; padding: 8px;">Kegiatan</span></h6>
+                <h6 class="position-absolute mt-0 card-title">
+                  <span class="badge badge-<?= $row->category_name === 'kegiatan' ? 'warning' : 'primary' ?> text-capitalize" style="border-radius: 0rem 0rem 1rem 0rem; padding: 8px;">
+                    <?= $row->category_name ?>
+                  </span>
+                </h6>
                 <div class="card-img-overlay z-2">
                   <div class="d-flex flex-column justify-content-end h-100">
                     <p class="card-text">
-                      Bupati Zaki Pimpin Rakor Forkopimda terkait Stok dan Harga Sembako Menjelang Ramadhan
+                      <?= $row->title ?>
                     </p>
                     <!-- <p class="card-text">Last updated 3 mins ago</p> -->
                   </div>
@@ -124,7 +134,7 @@
 <section id="gallery" class="position-relative d-flex flex-column align-items-start justify-content-center text-dark my-4">
   <div class="title-frame">
     <h2>galeri foto</h2>
-    <p>Dokumentasi aktifitas dari TPID.</p>
+    <p>Dokumentasi aktifitas terbaru dari TPID.</p>
   </div>
   <div class="wrapper px-1 py-5 px-sm-5">
     <div class="container">

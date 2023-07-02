@@ -16,39 +16,17 @@
       <div class="row align-items-start gap-5">
         <div class="col text-start">
           <div class="d-flex flex-nowrap gap-4 align-items-baseline">
-            <div class="d-flex flex-column w-100">
-              <div>
-                <div class="title-frame px-5 px-sm-4">
-                  <h2>struktur organisasi</h2>
+            <?php if (isset($content['data_strukturorganisasi'])) { ?>
+              <div class="d-flex flex-column w-100">
+                <div>
+                  <div class="title-frame px-5 px-sm-4">
+                    <h2><?= $content['data_strukturorganisasi']->title ?></h2>
+                  </div>
+                  <hr class="mt-4 border-5 border-secondary" style="max-width: 5%; opacity: 1;" />
                 </div>
-                <hr class="mt-4 border-5 border-secondary" style="max-width: 5%; opacity: 1;" />
+                <?= $content['data_strukturorganisasi']->description ?>
               </div>
-              <div class="fw-bold">
-                TPID adalah singkatan dari Tim Pengendalian Inflasi Daerah. TPID adalah tim yang dibentuk oleh pemerintah daerah untuk mengendalikan inflasi di wilayahnya. TPID bertanggung jawab untuk mengawasi harga barang dan jasa di pasar, memastikan bahwa tidak terjadi kenaikan harga yang tidak wajar atau tidak proporsional.
-                <br><br>
-                TPID juga dapat melakukan tindakan preventif untuk mencegah terjadinya inflasi, seperti mengoptimalkan produksi dan distribusi barang dan jasa, menjaga stabilitas pasokan bahan pokok, serta mendorong pertumbuhan ekonomi yang sehat.
-                <br><br>
-                Selain itu, TPID juga bertanggung jawab untuk mengkoordinasikan kebijakan pemerintah terkait inflasi di wilayahnya, serta memberikan informasi dan edukasi kepada masyarakat tentang inflasi dan cara mengatasinya. Dengan demikian, TPID diharapkan dapat menjaga stabilitas harga di pasar dan mencegah terjadinya inflasi yang berlebihan.
-                <br><br>
-                Visi dan misi TPID dapat bervariasi tergantung pada wilayah dan kebijakan pemerintah setempat. Namun, pada umumnya, visi TPID adalah menciptakan stabilitas harga dan mengendalikan inflasi di wilayahnya.
-                <br><br>
-                Berikut adalah visi dan misi TPID:
-                <br><br>
-                Visi:
-                Menciptakan stabilitas harga dan ketersediaan barang dan jasa yang cukup untuk kebutuhan masyarakat di wilayah kami.
-                <br><br>
-                Misi:
-                <ul style="list-style: number;">
-                  <li>Mengawasi pergerakan harga di pasar dan mencegah terjadinya kenaikan harga yang tidak wajar atau tidak proporsional.</li>
-                  <li>Mengoptimalkan produksi dan distribusi barang dan jasa di wilayah kami.</li>
-                  <li>Menjaga stabilitas pasokan bahan pokok di wilayah kami.</li>
-                  <li>Mendorong pertumbuhan ekonomi yang sehat untuk menciptakan lapangan kerja dan meningkatkan kesejahteraan masyarakat.</li>
-                  <li>Meningkatkan koordinasi dengan pihak terkait seperti produsen, distributor, dan lembaga pemerintah lainnya untuk mencapai tujuan TPID.</li>
-                  <li>Memberikan informasi dan edukasi kepada masyarakat tentang inflasi dan cara mengatasinya.</li>
-                </ul>
-                Dengan visi dan misi yang jelas, TPID diharapkan dapat menciptakan kondisi yang kondusif bagi kegiatan ekonomi dan kesejahteraan masyarakat di wilayahnya.
-              </div>
-            </div>
+            <?php } ?>
           </div>
         </div>
       </div>

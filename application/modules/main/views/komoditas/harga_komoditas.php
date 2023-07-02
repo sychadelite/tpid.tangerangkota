@@ -42,7 +42,8 @@
                               Pasar :
                             </button>
                             <select class="form-select" aria-label="Select Pasar" style="border-top-left-radius: 0px; border-bottom-left-radius: 0px;">
-                              <option value="1" selected="">Anyar</option>
+                              <option value="0" selected="">-- Pilih --</option>
+                              <option value="1">Anyar</option>
                               <option value="2">Bandeng</option>
                               <option value="30">Cibodas</option>
                               <option value="3">Gerendeng</option>
@@ -93,7 +94,8 @@
                               Jenis :
                             </button>
                             <select class="form-select" aria-label="Select Jenis" style="border-top-left-radius: 0px; border-bottom-left-radius: 0px;">
-                              <option value="1" selected="">Sembako</option>
+                              <option value="0" selected="">-- Pilih --</option>
+                              <option value="1">Sembako</option>
                               <option value="2">Daging</option>
                               <option value="3">Sayur</option>
                               <option value="4">Buah</option>
@@ -110,15 +112,15 @@
                               <option value="1" <?php echo set_value('bulan_pengumuman') == 'Januari' ? 'selected' : '' ?>>Januari</option>
                               <option value="2" <?php echo set_value('bulan_pengumuman') == 'Februari' ? 'selected' : '' ?>>Februari</option>
                               <option value="3" <?php echo set_value('bulan_pengumuman') == 'Maret' ? 'selected' : '' ?>>Maret</option>
-                              <option value="1" <?php echo set_value('bulan_pengumuman') == 'April' ? 'selected' : '' ?>>April</option>
-                              <option value="2" <?php echo set_value('bulan_pengumuman') == 'Mei' ? 'selected' : '' ?>>Mei</option>
-                              <option value="3" <?php echo set_value('bulan_pengumuman') == 'Juni' ? 'selected' : '' ?>>Juni</option>
-                              <option value="1" <?php echo set_value('bulan_pengumuman') == 'Juli' ? 'selected' : '' ?>>Juli</option>
-                              <option value="2" <?php echo set_value('bulan_pengumuman') == 'Agustus' ? 'selected' : '' ?>>Agustus</option>
-                              <option value="3" <?php echo set_value('bulan_pengumuman') == 'September' ? 'selected' : '' ?>>September</option>
-                              <option value="1" <?php echo set_value('bulan_pengumuman') == 'Oktober' ? 'selected' : '' ?>>Oktober</option>
-                              <option value="2" <?php echo set_value('bulan_pengumuman') == 'November' ? 'selected' : '' ?>>November</option>
-                              <option value="3" <?php echo set_value('bulan_pengumuman') == 'Desember' ? 'selected' : '' ?>>Desember</option>
+                              <option value="4" <?php echo set_value('bulan_pengumuman') == 'April' ? 'selected' : '' ?>>April</option>
+                              <option value="5" <?php echo set_value('bulan_pengumuman') == 'Mei' ? 'selected' : '' ?>>Mei</option>
+                              <option value="6" <?php echo set_value('bulan_pengumuman') == 'Juni' ? 'selected' : '' ?>>Juni</option>
+                              <option value="7" <?php echo set_value('bulan_pengumuman') == 'Juli' ? 'selected' : '' ?>>Juli</option>
+                              <option value="8" <?php echo set_value('bulan_pengumuman') == 'Agustus' ? 'selected' : '' ?>>Agustus</option>
+                              <option value="9" <?php echo set_value('bulan_pengumuman') == 'September' ? 'selected' : '' ?>>September</option>
+                              <option value="10" <?php echo set_value('bulan_pengumuman') == 'Oktober' ? 'selected' : '' ?>>Oktober</option>
+                              <option value="11" <?php echo set_value('bulan_pengumuman') == 'November' ? 'selected' : '' ?>>November</option>
+                              <option value="12" <?php echo set_value('bulan_pengumuman') == 'Desember' ? 'selected' : '' ?>>Desember</option>
                             </select>
                           </div>
                         </div>
@@ -174,7 +176,7 @@
                   <!-- Pills content -->
                   <div class="tab-content" id="ex2-content">
                     <div class="tab-pane fade show active" id="ex2-pills-1" role="tabpanel" aria-labelledby="ex2-tab-1">
-                      <div class="position-relative d-flex flex-column justify-content-center align-items-start mt-4">
+                      <div class="position-relative d-flex flex-column justify-content-center align-items-start">
                         <div class="d-flex flex-wrap justify-content-between align-items-center gap-4 w-100 mb-4">
                           <button id="btn-filter-komoditas" class="btn btn-primary z-1" onclick="toggleDrawer()">
                             <i class="fa-solid fa-filter me-2"></i>
@@ -200,12 +202,12 @@
                       </div>
                     </div>
                     <div class="tab-pane fade" id="ex2-pills-2" role="tabpanel" aria-labelledby="ex2-tab-2">
-                      <div class="position-relative d-flex flex-column justify-content-center align-items-start mt-4">
+                      <div class="position-relative d-flex flex-column justify-content-center align-items-start">
                         Tab 2 content
                       </div>
                     </div>
                     <div class="tab-pane fade" id="ex2-pills-3" role="tabpanel" aria-labelledby="ex2-tab-3">
-                      <div class="position-relative d-flex flex-column justify-content-center align-items-start mt-4">
+                      <div class="position-relative d-flex flex-column justify-content-center align-items-start">
                         Tab 3 content
                       </div>
                     </div>

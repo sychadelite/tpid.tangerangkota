@@ -1,0 +1,66 @@
+.dark-mode .custom-control-label::before,
+.dark-mode .custom-file-label,
+.dark-mode .custom-file-label::after,
+.dark-mode .custom-select,
+.dark-mode .form-control:not(.form-control-navbar):not(.form-control-sidebar),
+.dark-mode .input-group-text {
+  background-color: #343a40 !important;
+  color: #fff;
+}
+
+.dark-mode input:-webkit-autofill,
+.dark-mode input:-webkit-autofill:focus,
+.dark-mode input:-webkit-autofill:hover,
+.dark-mode select:-webkit-autofill,
+.dark-mode select:-webkit-autofill:focus,
+.dark-mode select:-webkit-autofill:hover,
+.dark-mode textarea:-webkit-autofill,
+.dark-mode textarea:-webkit-autofill:focus,
+.dark-mode textarea:-webkit-autofill:hover {
+  -webkit-text-fill-color: #343a40 !important;
+  font-weight: 600;
+}
+
+.dt-custom-control {
+  cursor: pointer;
+}
+
+#nestedListMenu .glyphicon-move {
+  cursor: grab;
+}
+
+.line-clamp {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* CKEditor 5 */
+#ck-code-container {
+  width: 100%;
+  margin: 0 auto 20px auto;
+  color: black;
+}
+
+.ck-editor__editable[role="textbox"] {
+  /* editing area */
+  min-height: 200px;
+}
+
+.ck-content .image {
+  /* block images */
+  max-width: 80%;
+  margin: 20px auto;
+}
+
+
+/* Upload Form */
+/*----------multiple-file-upload-----------*/
+[data-dz-thumbnail] {
+  width: 80px !important;
+  height: 80px !important;
+}
+
+
+/* CHECKBOX */

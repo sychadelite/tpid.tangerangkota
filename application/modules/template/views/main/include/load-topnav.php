@@ -19,63 +19,52 @@
 
       <!-- Center elements -->
       <ul class="navbar-nav flex-row d-none d-lg-flex gap-4">
-        <li class="nav-item">
-          <a class="nav-link <?= uri_string() === '' ? 'active' : '' ?>" aria-current="page" href="/">Beranda</a>
-        </li>
-        <!-- Navbar dropdown profil -->
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" onclick="event.stopPropagation();" id="navbarDropdownProfil" role="button" data-mdb-toggle="dropdown" aria-expanded="false">
-            Profil
-          </a>
-          <!-- Dropdown menu profil -->
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdownProfil">
-            <li>
-              <a class="dropdown-item <?= uri_string() === 'about' ? 'active' : '' ?>" href="/about">Tentang Kami</a>
+        <?php
+        function search($array, $key, $value)
+        {
+          $results = array();
+          if (is_array($array)) {
+            if (isset($array[$key]) && $array[$key] == $value) {
+              $results[] = $array;
+            }
+            foreach ($array as $subarray) {
+              $results = array_merge($results, search($subarray, $key, $value));
+            }
+          }
+          return $results;
+        }
+        ?>
+
+        <?php foreach ($content['menus_main'] as $indexMenu => $menu_main) { ?>
+          <?php
+          $group = search($content["menus_main"], "parent_id", $menu_main['id']);
+          $hasChilds = count($group) > 0;
+          ?>
+          <?php if ($menu_main['parent_id'] == 0) { ?>
+            <li class="nav-item <?= $hasChilds ? 'dropdown' : '' ?>">
+              <?php if (!$hasChilds) { ?>
+                <a class="nav-link <?= base_url(uri_string()) === $menu_main['url'] ? 'active' : '' ?>" aria-current="page" href="<?= $menu_main['url'] ?>">
+                  <?= $menu_main['name'] ?>
+                </a>
+              <?php } else { ?>
+                <!-- Navbar dropdown -->
+                <a class="nav-link dropdown-toggle" href="#" onclick="event.stopPropagation();" id="navbarDropdown<?= $menu_main['name'] ?>" role="button" data-mdb-toggle="dropdown" aria-expanded="false">
+                  <?= $menu_main['name'] ?>
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown<?= $menu_main['name'] ?>">
+                  <!-- Dropdown menu -->
+                  <?php foreach ($group as $indexChildMenu => $childMenu) { ?>
+                    <li>
+                      <a class="dropdown-item <?= base_url(uri_string()) === $childMenu['url'] ? 'active' : '' ?>" href="<?= $childMenu['url'] ?>">
+                        <?= $childMenu['name'] ?>
+                      </a>
+                    </li>
+                  <?php } ?>
+                </ul>
+              <?php } ?>
             </li>
-            <li>
-              <a class="dropdown-item <?= uri_string() === 'visi-misi' ? 'active' : '' ?>" href="/visi-misi">Visi Misi</a>
-            </li>
-            <li>
-              <a class="dropdown-item <?= uri_string() === 'tugas-utama' ? 'active' : '' ?>" href="/tugas-utama">Tugas Utama</a>
-            </li>
-            <li>
-              <hr class="dropdown-divider" />
-            </li>
-            <li>
-              <a class="dropdown-item <?= uri_string() === 'struktur-organisasi' ? 'active' : '' ?>" href="/struktur-organisasi">Struktur Organisasi</a>
-            </li>
-          </ul>
-        </li>
-        <!-- Navbar dropdown berita -->
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" onclick="event.stopPropagation();" id="navbarDropdownBerita" role="button" data-mdb-toggle="dropdown" aria-expanded="false">
-            Berita
-          </a>
-          <!-- Dropdown menu berita -->
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdownBerita">
-            <li>
-              <a class="dropdown-item <?= uri_string() === 'pengumuman' ? 'active' : '' ?>" href="/pengumuman">Pengumuman</a>
-            </li>
-            <li>
-              <a class="dropdown-item <?= uri_string() === 'kegiatan' ? 'active' : '' ?>" href="/kegiatan">Kegiatan</a>
-            </li>
-          </ul>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link <?= uri_string() === 'galeri' ? 'active' : '' ?>" href="/galeri">Galeri</a>
-        </li>
-        <!-- Navbar dropdown komoditas -->
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" onclick="event.stopPropagation();" id="navbarDropdownKomoditas" role="button" data-mdb-toggle="dropdown" aria-expanded="false">
-            Komoditas
-          </a>
-          <!-- Dropdown menu komoditas -->
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdownKomoditas">
-            <li>
-              <a class="dropdown-item <?= uri_string() === 'harga-komoditas' ? 'active' : '' ?>" href="/harga-komoditas">Harga Komoditas</a>
-            </li>
-          </ul>
-        </li>
+          <?php } ?>
+        <?php } ?>
       </ul>
       <!-- Center elements -->
 
@@ -89,50 +78,37 @@
 
           <!-- Dropdown Content -->
           <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
-            <li>
-              <a class="dropdown-item active" href="/">&nbsp;&nbsp;&nbsp; Beranda</a>
-            </li>
-            <li>
-              <a class="dropdown-item" href="#" onclick="event.stopPropagation();">&laquo;&nbsp; Profil</a>
-              <ul class="dropdown-menu dropdown-submenu dropdown-submenu-left">
+            <?php foreach ($content['menus_main'] as $indexMenu => $menu_main) { ?>
+              <?php
+              $group = search($content["menus_main"], "parent_id", $menu_main['id']);
+              $hasChilds = count($group) > 0;
+              ?>
+              <?php if ($menu_main['parent_id'] == 0) { ?>
                 <li>
-                  <a class="dropdown-item" href="/about">Tentang Kami</a>
+                  <?php if (!$hasChilds) { ?>
+                    <a class="dropdown-item <?= base_url(uri_string()) === $menu_main['url'] ? 'active' : '' ?>" href="<?= $menu_main['url'] ?>">
+                      &nbsp;&nbsp;&nbsp; <?= $menu_main['name'] ?>
+                    </a>
+                  <?php } else { ?>
+                    <a class="dropdown-item" href="#" onclick="event.stopPropagation();">
+                      &laquo;&nbsp; <?= $menu_main['name'] ?>
+                    </a>
+                    <ul class="dropdown-menu dropdown-submenu dropdown-submenu-left">
+                      <?php foreach ($group as $indexChildMenu => $childMenu) { ?>
+                        <li>
+                          <a class="dropdown-item <?= base_url(uri_string()) === $childMenu['url'] ? 'active' : '' ?>" href="<?= $childMenu['url'] ?>">
+                            <?= $childMenu['name'] ?>
+                          </a>
+                        </li>
+                      <?php } ?>
+                    </ul>
+                  <?php } ?>
                 </li>
-                <li>
-                  <a class="dropdown-item" href="/visi-misi">Visi Misi</a>
-                </li>
-                <li>
-                  <a class="dropdown-item" href="/tugas-utama">Tugas Utama</a>
-                </li>
-                <li>
-                  <a class="dropdown-item" href="/struktur-organisasi">Struktur Organisasi</a>
-                </li>
-              </ul>
-            </li>
-            <li>
-              <a class="dropdown-item" href="#" onclick="event.stopPropagation();">&laquo;&nbsp; Berita</a>
-              <ul class="dropdown-menu dropdown-submenu dropdown-submenu-left">
-                <li>
-                  <a class="dropdown-item" href="/pengumuman">Pengumuman</a>
-                </li>
-                <li>
-                  <a class="dropdown-item" href="/kegiatan">Kegiatan</a>
-                </li>
-              </ul>
-            </li>
-            <li>
-              <a class="dropdown-item" href="/galeri">&nbsp;&nbsp;&nbsp; Galeri </a>
-            </li>
-            <li>
-              <a class="dropdown-item" href="#" onclick="event.stopPropagation();">&laquo;&nbsp; Komoditas</a>
-              <ul class="dropdown-menu dropdown-submenu dropdown-submenu-left">
-                <li>
-                  <a class="dropdown-item" href="/harga-komoditas">Harga Komoditas</a>
-                </li>
-              </ul>
-            </li>
+              <?php } ?>
+            <?php } ?>
           </ul>
         </li>
+
         <!-- Accordion Menu on phone -->
         <li class="nav-item dropdown mx-auto d-block d-md-none">
           <button class="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -144,76 +120,42 @@
     </div>
 
     <!-- Collapsed Content -->
-    <div class="collapse w-100 d-md-none p-2" id="navbarToggleExternalContent" style="max-height: 75vh; overflow: auto;">
+    <div class="collapse w-100 d-md-none p-2" id="navbarToggleExternalContent" style="max-height: 60vh; overflow: auto;">
       <div class="accordion accordion-borderless" id="accordionFlushTopnav">
-        <div class="accordion-item my-2">
-          <h2 class="accordion-header" id="flush-heading-home">
-            <a href="/" class="accordion-button <?= uri_string() === '' ? 'active' : '' ?> collapsed text-white" type="button">
-              Beranda
-            </a>
-          </h2>
-        </div>
-        <div class="accordion-item my-2">
-          <h2 class="accordion-header" id="flush-heading-profile">
-            <button class="accordion-button collapsed text-white" type="button" data-mdb-toggle="collapse" data-mdb-target="#flush-collapse-profile" aria-expanded="false" aria-controls="flush-collapse-profile">
-              Profil
-            </button>
-          </h2>
-          <div id="flush-collapse-profile" class="accordion-collapse collapse" aria-labelledby="flush-heading-profile" data-mdb-parent="#accordionFlushTopnav">
-            <div class="accordion-body text-white py-0 px-3">
-              <a href="/about" class="accordion-button <?= uri_string() === 'about' ? 'active' : '' ?> collapsed text-white my-2" type="button">
-                Tentang Kami
-              </a>
-              <a href="/visi-misi" class="accordion-button <?= uri_string() === 'visi-misi' ? 'active' : '' ?> collapsed text-white my-2" type="button">
-                Visi Misi
-              </a>
-              <a href="/tugas-utama" class="accordion-button <?= uri_string() === 'tugas-utama' ? 'active' : '' ?> collapsed text-white my-2" type="button">
-                Tugas Utama
-              </a>
-              <a href="/struktur-organisasi" class="accordion-button <?= uri_string() === 'struktur-organisasi' ? 'active' : '' ?> collapsed text-white my-2" type="button">
-                Struktur Organisasi
-              </a>
-            </div>
-          </div>
-        </div>
-        <div class="accordion-item my-2">
-          <h2 class="accordion-header" id="flush-heading-news">
-            <button class="accordion-button collapsed text-white" type="button" data-mdb-toggle="collapse" data-mdb-target="#flush-collapse-news" aria-expanded="false" aria-controls="flush-collapse-news">
-              Berita
-            </button>
-          </h2>
-          <div id="flush-collapse-news" class="accordion-collapse collapse" aria-labelledby="flush-heading-news" data-mdb-parent="#accordionFlushTopnav">
-            <div class="accordion-body text-white py-0 px-3">
-              <a href="/pengumuman" class="accordion-button <?= uri_string() === 'pengumuman' ? 'active' : '' ?> collapsed text-white my-2" type="button">
-                Pengumuman
-              </a>
-              <a href="/kegiatan" class="accordion-button <?= uri_string() === 'kegiatan' ? 'active' : '' ?> collapsed text-white my-2" type="button">
-                Kegiatan
-              </a>
-            </div>
-          </div>
-        </div>
-        <div class="accordion-item my-2">
-          <h2 class="accordion-header" id="flush-heading-gallery">
-            <a href="/galeri" class="accordion-button <?= uri_string() === 'galeri' ? 'active' : '' ?> collapsed text-white" type="button">
-              Galeri
-            </a>
-          </h2>
-        </div>
-        <div class="accordion-item my-2">
-          <h2 class="accordion-header" id="flush-heading-commodity">
-            <button class="accordion-button collapsed text-white" type="button" data-mdb-toggle="collapse" data-mdb-target="#flush-collapse-commodity" aria-expanded="false" aria-controls="flush-collapse-commodity">
-              Komoditas
-            </button>
-          </h2>
-          <div id="flush-collapse-commodity" class="accordion-collapse collapse" aria-labelledby="flush-heading-commodity" data-mdb-parent="#accordionFlushTopnav">
-            <div class="accordion-body text-white py-0 px-3">
-              <a href="/harga-komoditas" class="accordion-button <?= uri_string() === 'harga-komoditas' ? 'active' : '' ?> collapsed text-white my-2" type="button">
-                Harga Komoditas
-              </a>
-            </div>
-          </div>
-        </div>
+        <?php foreach ($content['menus_main'] as $indexMenu => $menu_main) { ?>
+          <?php
+          $group = search($content["menus_main"], "parent_id", $menu_main['id']);
+          $hasChilds = count($group) > 0;
+          ?>
+          <?php if ($menu_main['parent_id'] == 0) { ?>
+            <?php if (!$hasChilds) { ?>
+              <div class="accordion-item my-2">
+                <h2 class="accordion-header" id="flush-heading-<?= strtolower($menu_main['name']) ?>">
+                  <a href="<?= $menu_main['url'] ?>" class="accordion-button <?= base_url(uri_string()) === $menu_main['url'] ? 'active' : '' ?> collapsed text-white" type="button">
+                    <?= $menu_main['name'] ?>
+                  </a>
+                </h2>
+              </div>
+            <?php } else { ?>
+              <div class="accordion-item my-2">
+                <h2 class="accordion-header" id="flush-heading-<?= strtolower($menu_main['name']) ?>">
+                  <button class="accordion-button collapsed text-white" type="button" data-mdb-toggle="collapse" data-mdb-target="#flush-collapse-<?= strtolower($menu_main['name']) ?>" aria-expanded="false" aria-controls="flush-collapse-<?= strtolower($menu_main['name']) ?>">
+                    <?= $menu_main['name'] ?>
+                  </button>
+                </h2>
+                <?php foreach ($group as $indexChildMenu => $childMenu) { ?>
+                  <div id="flush-collapse-<?= strtolower($menu_main['name']) ?>" class="accordion-collapse collapse" aria-labelledby="flush-heading-<?= strtolower($menu_main['name']) ?>" data-mdb-parent="#accordionFlushTopnav">
+                    <div class="accordion-body text-white py-0 px-3">
+                      <a href="<?= $childMenu['url'] ?>" class="accordion-button <?= base_url(uri_string()) === $childMenu['url'] ? 'active' : '' ?> collapsed text-white my-2" type="button">
+                        <?= $childMenu['name'] ?>
+                      </a>
+                    </div>
+                  </div>
+                <?php } ?>
+              </div>
+            <?php } ?>
+          <?php } ?>
+        <?php } ?>
       </div>
     </div>
   </nav>
@@ -221,14 +163,27 @@
 <!-- Navbar -->
 
 <script>
-  // Get all the active accordion buttons
-  const parentDropdownButton = document.querySelectorAll('.nav-link.dropdown-toggle')
-
-  // Loop through each active button
-  parentDropdownButton.forEach(toggle => {
+  const parentLink = document.querySelectorAll('#topnav .nav-link.dropdown-toggle');
+  parentLink.forEach(toggle => {
     const activeButton = toggle.parentElement.querySelectorAll('.active');
-    if (activeButton.length > 0) {
-      toggle.classList.add('active')
-    }
+    activeButton.forEach((el) => {
+      const parent = el.parentElement.parentElement.parentElement;
+      const parentActiveEl = parent.querySelector('.dropdown-item, .dropdown-toggle');
+      parentActiveEl.classList.add('active');
+    });
   });
+
+  const parentAccordionButton = document.querySelectorAll('#topnav .accordion');
+  parentAccordionButton.forEach(toggle => {
+    const activeButton = toggle.querySelectorAll('.active');
+    activeButton.forEach((el) => {
+      const parentActiveEl = el.parentElement.parentElement.parentElement.querySelector('.accordion-button');
+      if (parentActiveEl.getAttribute('data-mdb-toggle') == 'collapse') {
+        parentActiveEl.classList.add('active');
+        $(document).ready(function() {
+          parentActiveEl.click();
+        });
+      }
+    });
+  })
 </script>

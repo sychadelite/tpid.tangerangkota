@@ -50,27 +50,29 @@ function onScroll() {
   /* TOPNAV */
   const offsetPage = window.pageYOffset;
   const topnav = document.getElementById('topnav');
-  if (window.location.pathname !== '/') {
-    topnav.classList.remove('bg-transparent');
-    topnav.classList.add('bg-primary');
-    return true;
-  }
-  if (offsetPage > previousScroll) {
-    // scrolling to bottom
-    topnav.classList.remove('bg-transparent');
-    topnav.classList.add('bg-primary');
-  } else {
-    if (offsetPage < 10) {
-      // reached top
-      topnav.classList.remove('bg-primary');
-      topnav.classList.add('bg-transparent');
-    } else {
-      // scrolling to top
+  if (topnav) {
+    if (window.location.pathname !== '/') {
       topnav.classList.remove('bg-transparent');
       topnav.classList.add('bg-primary');
+      return true;
     }
+    if (offsetPage > previousScroll) {
+      // scrolling to bottom
+      topnav.classList.remove('bg-transparent');
+      topnav.classList.add('bg-primary');
+    } else {
+      if (offsetPage < 10) {
+        // reached top
+        topnav.classList.remove('bg-primary');
+        topnav.classList.add('bg-transparent');
+      } else {
+        // scrolling to top
+        topnav.classList.remove('bg-transparent');
+        topnav.classList.add('bg-primary');
+      }
+    }
+    previousScroll = offsetPage
   }
-  previousScroll = offsetPage
 }
 
 function refTo(id) {
