@@ -63,10 +63,14 @@ $route['struktur-organisasi'] = 'main/strukturorganisasi';
 $route['kegiatan'] = 'main/kegiatan';
 $route['kegiatan/group/(:any)'] = 'main/kegiatan/group/$1';
 $route['kegiatan/detail/(:any)'] = 'main/kegiatan/detail/$1';
+$route['kegiatan/user_form_submit'] = 'main/kegiatan/user_form_submit';
+$route['kegiatan/group/event/search'] = 'main/kegiatan/search';
 
 $route['pengumuman'] = 'main/pengumuman';
 $route['pengumuman/group/(:any)'] = 'main/pengumuman/group/$1';
 $route['pengumuman/detail/(:any)'] = 'main/pengumuman/detail/$1';
+$route['pengumuman/user_form_submit'] = 'main/pengumuman/user_form_submit';
+$route['pengumuman/group/event/search'] = 'main/pengumuman/search';
 
 $route['galeri'] = 'main/galeri';
 

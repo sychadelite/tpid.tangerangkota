@@ -50,7 +50,37 @@ class Pengumuman extends MY_Controller
 
   public function user_form_submit()
   {
-    $this->form_validation->set_rules("tahun_pengumuman", "Tahun Pengumuman", "trim|required");
-    $this->form_validation->set_rules("bulan_pengumuman", "Bulan Pengumuman", "trim|required");
+    if ($this->input->post('tahun_pengumuman') && $this->input->post('bulan_pengumuman')) {
+      $payload = [
+        "year" => $this->input->post('tahun_pengumuman'),
+        "month" => $this->input->post('bulan_pengumuman'),
+      ];
+      $pengumuman_page = "main/pengumuman/index";
+      $category = $this->CategoryModel->get_data('name', 'pengumuman');
+      $data['content']['data_category'] = $category;
+      $data['content']['data_all_pengumuman'] = $this->BeritaModel->get_all_public_data('category_id', $category->id, null, null, $payload['year'] . "-" . $payload['month']);
+      $this->template->MainLayout($pengumuman_page, $data);
+    } else {
+      return redirect('/pengumuman');
+    }
+  }
+
+  public function search()
+  {
+    if ($this->input->post()) {
+      $search =  $this->input->post('search');
+      $yearMonth = $this->input->post('year_month');
+      $category = $this->CategoryModel->get_data('name', 'pengumuman');
+      $data['content']['data_pengumuman_by_year_month'] = $this->BeritaModel->get_all_public_data_by_year_month('category_id', $category->id, $yearMonth, $search);
+
+      $data['year'] = date('Y', strtotime($yearMonth));
+      $data['month'] = date('m', strtotime($yearMonth));
+      $data['monthName'] = getMonthName($data['month']);
+
+      $pengumuman_group_page = "main/pengumuman/pengumuman_group_view";
+      $this->template->MainLayout($pengumuman_group_page, $data);
+    } else {
+      return redirect('/pengumuman');
+    }
   }
 }

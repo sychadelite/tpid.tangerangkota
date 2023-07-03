@@ -25,17 +25,21 @@
                 <hr class="mt-4 border-5 border-secondary" style="max-width: 5%; opacity: 1;" data-aos="fade-right" data-aos-duration="2000" />
               </div>
               <div class="position-relative p-3 w-100 min-vh-100">
-                <div class="d-flex flex-wrap justify-content-between align-items-center gap-4">
-                  <div class="input-group custom-input-search m-auto" style="max-width: 96%; height: 3rem;">
-                    <div class="form-outline" style="height: 3rem;">
-                      <input id="search_event" type="search" class="form-control" style="height: 3rem;" />
-                      <label class="form-label" for="search_event" style="font-size: 20px;">Cari informasi event</label>
+                <form action="/kegiatan/group/event/search" method="post" autocomplete="off">
+                  <input type="hidden" name="<?= $content['csrf']['name']; ?>" value="<?= $content['csrf']['hash']; ?>" />
+                  <input type="hidden" name="year_month" value="<?= $year . "-" . sprintf('%02d', $month); ?>" />
+                  <div class="d-flex flex-wrap justify-content-between align-items-center gap-4">
+                    <div class="input-group custom-input-search m-auto" style="max-width: 96%; height: 3rem;">
+                      <div class="form-outline" style="height: 3rem;">
+                        <input id="search" name="search" value="<?= set_value('search') ?>" type="search" class="form-control" style="height: 3rem;" />
+                        <label class="form-label" for="search" style="font-size: 20px;">Cari informasi event</label>
+                      </div>
+                      <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-search pe-none"></i>
+                      </button>
                     </div>
-                    <button type="button" class="btn btn-primary">
-                      <i class="fas fa-search pe-none"></i>
-                    </button>
                   </div>
-                </div>
+                </form>
 
                 <div class="position-relative d-flex flex-column justify-content-center align-items-start">
                   <h1 class="fw-bolder mt-5 w-fit followMeBar" data-follow="year" data-distance-intersect="50"><?= $year ?></h1>

@@ -24,46 +24,49 @@
                 <hr class="mt-4 border-5 border-secondary" style="max-width: 5%; opacity: 1;" data-aos="fade-right" data-aos-duration="2000" />
               </div>
               <div class="position-relative p-3 w-100 min-vh-100">
-                <div class="d-flex flex-wrap justify-content-between align-items-center gap-4">
-                  <div class="col" style="max-width: 30rem;">
-                    <label for="tahun_pengumuman" class="mb-2">
-                      <h5>Tahun</h5>
-                    </label>
-                    <select class="form-select" style="padding: 12px;" id="tahun_pengumuman" name="tahun_pengumuman" aria-label="Default select example">
-                      <option disabled <?php echo !set_value('tahun_pengumuman') ? 'selected' : '' ?>>Pilih</option>
-                      <option value="1" <?php echo set_value('tahun_pengumuman') == '2018' ? 'selected' : '' ?>>2018</option>
-                      <option value="2" <?php echo set_value('tahun_pengumuman') == '2019' ? 'selected' : '' ?>>2019</option>
-                      <option value="3" <?php echo set_value('tahun_pengumuman') == '2020' ? 'selected' : '' ?>>2020</option>
-                      <option value="3" <?php echo set_value('tahun_pengumuman') == '2021' ? 'selected' : '' ?>>2021</option>
-                      <option value="3" <?php echo set_value('tahun_pengumuman') == '2022' ? 'selected' : '' ?>>2022</option>
-                      <option value="3" <?php echo set_value('tahun_pengumuman') == '2023' ? 'selected' : '' ?>>2023</option>
-                    </select>
-                    <div class="valid-feedback helper-tahun_pengumuman mt-1">Looks good!</div>
-                    <div class="invalid-feedback helper-tahun_pengumuman mt-1"><?php echo form_error("tahun_pengumuman"); ?></div>
+                <form action="/pengumuman/user_form_submit" method="post" autocomplete="off">
+                  <input type="hidden" name="<?= $content['csrf']['name']; ?>" value="<?= $content['csrf']['hash']; ?>" />
+                  <div class="d-flex flex-wrap justify-content-between align-items-center gap-4">
+                    <div class="col" style="max-width: 30rem;">
+                      <label for="tahun_pengumuman" class="mb-2">
+                        <h5>Tahun</h5>
+                      </label>
+                      <select class="form-select" style="padding: 12px;" id="tahun_pengumuman" name="tahun_pengumuman" aria-label="Default select example">
+                        <option disabled <?php echo !set_value('tahun_pengumuman') ? 'selected' : '' ?>>Pilih</option>
+                        <?php for ($i = ((int) date("Y") - 2015); $i >= 0; $i--) { ?>
+                          <option value="<?= 2015 + $i ?>" <?= (2015 + $i) == set_value('tahun_pengumuman') ? 'selected' : '' ?>><?= 2015 + $i ?></option>
+                        <?php } ?>
+                      </select>
+                      <div class="valid-feedback helper-tahun_pengumuman mt-1">Looks good!</div>
+                      <div class="invalid-feedback helper-tahun_pengumuman mt-1"><?php echo form_error("tahun_pengumuman"); ?></div>
+                    </div>
+                    <div class="col" style="max-width: 30rem;">
+                      <label for="bulan_pengumuman" class="mb-2">
+                        <h5>Bulan</h5>
+                      </label>
+                      <select class="form-select" style="padding: 12px;" id="bulan_pengumuman" name="bulan_pengumuman" aria-label="Default select example">
+                        <option disabled <?php echo !set_value('bulan_pengumuman') ? 'selected' : '' ?>>Pilih</option>
+                        <option value="01" <?= set_value('bulan_pengumuman') == "01" ? 'selected' : '' ?>>Januari</option>
+                        <option value="02" <?= set_value('bulan_pengumuman') == "02" ? 'selected' : '' ?>>Februari</option>
+                        <option value="03" <?= set_value('bulan_pengumuman') == "03" ? 'selected' : '' ?>>Maret</option>
+                        <option value="04" <?= set_value('bulan_pengumuman') == "04" ? 'selected' : '' ?>>April</option>
+                        <option value="05" <?= set_value('bulan_pengumuman') == "05" ? 'selected' : '' ?>>Mei</option>
+                        <option value="06" <?= set_value('bulan_pengumuman') == "06" ? 'selected' : '' ?>>Juni</option>
+                        <option value="07" <?= set_value('bulan_pengumuman') == "07" ? 'selected' : '' ?>>Juli</option>
+                        <option value="08" <?= set_value('bulan_pengumuman') == "08" ? 'selected' : '' ?>>Agustus</option>
+                        <option value="09" <?= set_value('bulan_pengumuman') == "09" ? 'selected' : '' ?>>September</option>
+                        <option value="10" <?= set_value('bulan_pengumuman') == "10" ? 'selected' : '' ?>>Oktober</option>
+                        <option value="11" <?= set_value('bulan_pengumuman') == "11" ? 'selected' : '' ?>>November</option>
+                        <option value="12" <?= set_value('bulan_pengumuman') == "12" ? 'selected' : '' ?>>Desember</option>
+                      </select>
+                      <div class="valid-feedback helper-bulan_pengumuman mt-1">Looks good!</div>
+                      <div class="invalid-feedback helper-bulan_pengumuman mt-1"><?php echo form_error("bulan_pengumuman"); ?></div>
+                    </div>
                   </div>
-                  <div class="col" style="max-width: 30rem;">
-                    <label for="bulan_pengumuman" class="mb-2">
-                      <h5>Bulan</h5>
-                    </label>
-                    <select class="form-select" style="padding: 12px;" id="bulan_pengumuman" name="bulan_pengumuman" aria-label="Default select example">
-                      <option disabled <?php echo !set_value('bulan_pengumuman') ? 'selected' : '' ?>>Pilih</option>
-                      <option value="1" <?php echo set_value('bulan_pengumuman') == 'Januari' ? 'selected' : '' ?>>Januari</option>
-                      <option value="2" <?php echo set_value('bulan_pengumuman') == 'Februari' ? 'selected' : '' ?>>Februari</option>
-                      <option value="3" <?php echo set_value('bulan_pengumuman') == 'Maret' ? 'selected' : '' ?>>Maret</option>
-                      <option value="1" <?php echo set_value('bulan_pengumuman') == 'April' ? 'selected' : '' ?>>April</option>
-                      <option value="2" <?php echo set_value('bulan_pengumuman') == 'Mei' ? 'selected' : '' ?>>Mei</option>
-                      <option value="3" <?php echo set_value('bulan_pengumuman') == 'Juni' ? 'selected' : '' ?>>Juni</option>
-                      <option value="1" <?php echo set_value('bulan_pengumuman') == 'Juli' ? 'selected' : '' ?>>Juli</option>
-                      <option value="2" <?php echo set_value('bulan_pengumuman') == 'Agustus' ? 'selected' : '' ?>>Agustus</option>
-                      <option value="3" <?php echo set_value('bulan_pengumuman') == 'September' ? 'selected' : '' ?>>September</option>
-                      <option value="1" <?php echo set_value('bulan_pengumuman') == 'Oktober' ? 'selected' : '' ?>>Oktober</option>
-                      <option value="2" <?php echo set_value('bulan_pengumuman') == 'November' ? 'selected' : '' ?>>November</option>
-                      <option value="3" <?php echo set_value('bulan_pengumuman') == 'Desember' ? 'selected' : '' ?>>Desember</option>
-                    </select>
-                    <div class="valid-feedback helper-bulan_pengumuman mt-1">Looks good!</div>
-                    <div class="invalid-feedback helper-bulan_pengumuman mt-1"><?php echo form_error("bulan_pengumuman"); ?></div>
+                  <div class="mt-3 w-100 text-center">
+                    <button type="submit" class="btn btn-primary">Filter</button>
                   </div>
-                </div>
+                </form>
 
                 <div class="position-relative d-flex flex-column justify-content-center align-items-start">
                   <?php
@@ -110,7 +113,7 @@
 
                               <div id="card-pengumuman-<?= $row->id ?>" class="shadow-sm py-3 mb-5 w-100 row no-gutters bg-primary-subtle text-white position-relative" style="border-radius: 1rem;">
                                 <div class="col-md-6 mb-md-0 p-md-4">
-                                  <img src="<?= $row->cover ?>" class="w-100" alt="..." style="border-radius: 1rem;">
+                                  <img src="<?= substr($row->cover, 1) ?>" class="w-100" alt="..." style="border-radius: 1rem;">
                                 </div>
                                 <div class="col-md-6 p-3 p-sm-4 pl-md-0 d-flex flex-column justify-content-start">
                                   <div>

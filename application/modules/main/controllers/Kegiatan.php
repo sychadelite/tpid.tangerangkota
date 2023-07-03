@@ -50,7 +50,37 @@ class Kegiatan extends MY_Controller
 
   public function user_form_submit()
   {
-    $this->form_validation->set_rules("tahun_kegiatan", "Tahun Kegiatan", "trim|required");
-    $this->form_validation->set_rules("bulan_kegiatan", "Bulan Kegiatan", "trim|required");
+    if ($this->input->post('tahun_kegiatan') && $this->input->post('bulan_kegiatan')) {
+      $payload = [
+        "year" => $this->input->post('tahun_kegiatan'),
+        "month" => $this->input->post('bulan_kegiatan'),
+      ];
+      $kegiatan_page = "main/kegiatan/index";
+      $category = $this->CategoryModel->get_data('name', 'kegiatan');
+      $data['content']['data_category'] = $category;
+      $data['content']['data_all_kegiatan'] = $this->BeritaModel->get_all_public_data('category_id', $category->id, null, null, $payload['year'] . "-" . $payload['month']);
+      $this->template->MainLayout($kegiatan_page, $data);
+    } else {
+      return redirect('/kegiatan');
+    }
+  }
+
+  public function search()
+  {
+    if ($this->input->post()) {
+      $search =  $this->input->post('search');
+      $yearMonth = $this->input->post('year_month');
+      $category = $this->CategoryModel->get_data('name', 'kegiatan');
+      $data['content']['data_kegiatan_by_year_month'] = $this->BeritaModel->get_all_public_data_by_year_month('category_id', $category->id, $yearMonth, $search);
+
+      $data['year'] = date('Y', strtotime($yearMonth));
+      $data['month'] = date('m', strtotime($yearMonth));
+      $data['monthName'] = getMonthName($data['month']);
+
+      $kegiatan_group_page = "main/kegiatan/kegiatan_group_view";
+      $this->template->MainLayout($kegiatan_group_page, $data);
+    } else {
+      return redirect('/kegiatan');
+    }
   }
 }

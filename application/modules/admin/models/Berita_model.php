@@ -106,13 +106,16 @@ class Berita_model extends CI_Model
     return $data->row();
   }
 
-  public function get_all_public_data($field = null, $value = null, $limit = null, $offset = null)
+  public function get_all_public_data($field = null, $value = null, $limit = null, $offset = null, $yearMonth = null)
   {
     $this->db->select('A.*, B.`name as category_name`');
     $this->db->from($this->table . ' as A');
     $this->db->join('m_category as B', 'A.`category_id` = B.`id`', 'inner');
     if ($field && $value) {
       $this->db->where('A.' . $field, $value);
+    }
+    if ($yearMonth) {
+      $this->db->where("DATE_FORMAT(A.created_at, '%Y-%m') =", $yearMonth);
     }
     $this->db->where('A.status', 'active');
     $this->db->order_by('A.created_at', 'desc');
@@ -123,7 +126,7 @@ class Berita_model extends CI_Model
     return $data->result();
   }
 
-  public function get_all_public_data_by_year_month($field, $value, $yearMonth = null)
+  public function get_all_public_data_by_year_month($field, $value, $yearMonth = null, $search = null)
   {
     $this->db->select([
       $this->table . '.*',
@@ -132,6 +135,11 @@ class Berita_model extends CI_Model
     $this->db->where($this->table . '.' . $field, $value);
     if ($yearMonth) {
       $this->db->where("DATE_FORMAT(" . $this->table . ".created_at, '%Y-%m') =", $yearMonth);
+    }
+    if ($search) {
+      $this->db->like($this->table . '.title', $search, 'both');
+      $this->db->or_like($this->table . '.slug', $search, 'both');
+      $this->db->or_like($this->table . '.description', $search, 'both');
     }
     $this->db->where($this->table . '.status', 'active');
     $this->db->order_by($this->table . '.created_at', 'desc');
