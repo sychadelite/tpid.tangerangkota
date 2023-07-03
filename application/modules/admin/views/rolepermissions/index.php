@@ -237,11 +237,20 @@
 
         $(container).empty();
 
+        const groupedMenus = {};
         menus.forEach(menu => {
+          const parentId = menu.parent_id || 0;
+          if (!groupedMenus[parentId]) {
+            groupedMenus[parentId] = [];
+          }
+          groupedMenus[parentId].push(menu);
+        });
+
+        const createMenuElement = (menu, level) => {
           const divOuter = document.createElement("div");
           divOuter.className = "input-group mb-3";
-          divOuter.style.marginLeft = parseInt(menu.parent_id) > 0 ? "5%" : null;
-          divOuter.style.maxWidth = parseInt(menu.parent_id) > 0 ? "95%" : null;
+          divOuter.style.marginLeft = level > 0 ? "5%" : null;
+          divOuter.style.maxWidth = level > 0 ? "95%" : null;
 
           const divInner = document.createElement("div");
           divInner.className = "input-group-prepend";
@@ -249,9 +258,7 @@
           const divInputGroupText = document.createElement("div");
           divInputGroupText.className = "input-group-text";
 
-          isMenuAlreadySet = available_menus.some(function(val) {
-            return val.menu_id == menu.id;
-          });
+          const isMenuAlreadySet = available_menus.some(val => val.menu_id == menu.id);
 
           const checkbox = document.createElement("input");
           checkbox.id = "checkbox-menu-" + menu.id;
@@ -261,7 +268,6 @@
           checkbox.setAttribute("aria-label", "Checkbox for following text input");
 
           divInputGroupText.appendChild(checkbox);
-
           divInner.appendChild(divInputGroupText);
 
           const inputText = document.createElement("input");
@@ -272,11 +278,34 @@
           inputText.disabled = true;
 
           divOuter.appendChild(divInner);
-
           divOuter.appendChild(inputText);
 
-          container.appendChild(divOuter);
+          return divOuter;
+        };
 
+        const createMenuTree = (parentId, level) => {
+          const menuList = groupedMenus[parentId];
+          if (!menuList) {
+            return [];
+          }
+
+          const menuElements = [];
+          menuList.forEach(menu => {
+            const menuElement = createMenuElement(menu, level);
+            menuElements.push(menuElement);
+
+            const childMenuElements = createMenuTree(menu.id, level + 1);
+            childMenuElements.forEach(childMenuElement => {
+              menuElements.push(childMenuElement);
+            });
+          });
+
+          return menuElements;
+        };
+
+        const menuElements = createMenuTree(0, 0);
+        menuElements.forEach(menuElement => {
+          container.appendChild(menuElement);
         });
       },
       error: function(xhr, status, error) {

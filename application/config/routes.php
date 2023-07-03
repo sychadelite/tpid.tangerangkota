@@ -70,6 +70,7 @@ $route['pengumuman/detail/(:any)'] = 'main/pengumuman/detail/$1';
 
 $route['galeri'] = 'main/galeri';
 
+$route['komoditas'] = 'main/komoditas/index';
 $route['harga-komoditas'] = 'main/komoditas/harga_komoditas';
 
 /* ADMIN ROUTES */
@@ -83,6 +84,7 @@ $route['admin/kategori'] = 'admin/category';
 $route['admin/berita/(:any)'] = 'admin/berita/index/$1';
 $route['admin/profile'] = 'admin/profile/index';
 $route['admin/profile/(:any)'] = 'admin/profile/slug/$1';
+$route['admin/komoditas/(:any)'] = 'admin/komoditas/index/$1';
 
 /* AUTH ROUTES */
 $route['login'] = 'admin/auth';
@@ -141,4 +143,34 @@ $route['api/profile/(:num)']['get'] = 'admin/api/profile/get_by_id/$1';
 $route['api/profile/create']['post'] = 'admin/api/profile/create';
 $route['api/profile/update']['post'] = 'admin/api/profile/update';
 $route['api/profile/destroy']['post'] = 'admin/api/profile/destroy';
+// => pasar <=
+$route['api/pasars']['get'] = 'admin/api/pasar';
+$route['api/pasar/(:num)']['get'] = 'admin/api/pasar/get_by_id/$1';
+$route['api/pasar/create']['post'] = 'admin/api/pasar/create';
+$route['api/pasar/update']['post'] = 'admin/api/pasar/update';
+$route['api/pasar/destroy']['post'] = 'admin/api/pasar/destroy';
+// => komoditas <=
+$route['api/komoditases']['get'] = 'admin/api/komoditas';
+$route['api/komoditas/(:num)']['get'] = 'admin/api/komoditas/get_by_id/$1';
+$route['api/komoditas/create']['post'] = 'admin/api/komoditas/create';
+$route['api/komoditas/update']['post'] = 'admin/api/komoditas/update';
+$route['api/komoditas/destroy']['post'] = 'admin/api/komoditas/destroy';
+// => komoditas rekapitulasi <=
+$route['api/komoditas/rekapitulasis']['get'] = 'admin/api/komoditasrekapitulasi';
+$route['api/komoditas/rekapitulasi/(:num)']['get'] = 'admin/api/komoditasrekapitulasi/get_by_id/$1';
+$route['api/komoditas/rekapitulasi/create']['post'] = 'admin/api/komoditasrekapitulasi/create';
+$route['api/komoditas/rekapitulasi/update']['post'] = 'admin/api/komoditasrekapitulasi/update';
+$route['api/komoditas/rekapitulasi/destroy']['post'] = 'admin/api/komoditasrekapitulasi/destroy';
+// => komoditas kelompok <=
+$route['api/komoditas/kelompoks']['get'] = 'admin/api/komoditaskelompok';
+$route['api/komoditas/kelompok/(:num)']['get'] = 'admin/api/komoditaskelompok/get_by_id/$1';
+$route['api/komoditas/kelompok/create']['post'] = 'admin/api/komoditaskelompok/create';
+$route['api/komoditas/kelompok/update']['post'] = 'admin/api/komoditaskelompok/update';
+$route['api/komoditas/kelompok/destroy']['post'] = 'admin/api/komoditaskelompok/destroy';
+// => komoditas jenis <=
+$route['api/komoditas/jenises']['get'] = 'admin/api/komoditasjenis';
+$route['api/komoditas/jenis/(:num)']['get'] = 'admin/api/komoditasjenis/get_by_id/$1';
+$route['api/komoditas/jenis/create']['post'] = 'admin/api/komoditasjenis/create';
+$route['api/komoditas/jenis/update']['post'] = 'admin/api/komoditasjenis/update';
+$route['api/komoditas/jenis/destroy']['post'] = 'admin/api/komoditasjenis/destroy';
 

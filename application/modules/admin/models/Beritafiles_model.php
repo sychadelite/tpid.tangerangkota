@@ -46,6 +46,22 @@ class Beritafiles_model extends CI_Model
     return $data->result();
   }
 
+  public function get_all_public_data($field = null, $value = null, $limit = null, $offset = null)
+  {
+    $this->db->select('A.`id`, `berita_id`, `file_path`, B.`category_id`, `slug`, `title`, `description`, `cover`');
+    $this->db->from($this->table . ' as A');
+    $this->db->join('m_berita as B', 'A.`berita_id` = B.`id`', 'inner');
+    if ($field && $value) {
+      $this->db->where('A.' . $field, $value);
+    }
+    $this->db->order_by('A.`created_at`', 'desc');
+    if ($limit) {
+      $this->db->limit($limit, $offset);
+    }
+    $data = $this->db->get();
+    return $data->result();
+  }
+
   public function update_data($where, $data)
   {
     $this->db->update($this->table, $data, $where);

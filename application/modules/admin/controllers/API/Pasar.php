@@ -1,6 +1,6 @@
 <?php
 
-class Users extends MY_Controller
+class Pasar extends MY_Controller
 {
   private $key;
   public function __construct()
@@ -14,6 +14,7 @@ class Users extends MY_Controller
     $this->load->model(array(
       'User_model' => 'UserModel',
       'Usergroup_model' => 'UserGroupModel',
+      'Pasar_model' => 'PasarModel',
     ));
 
     $this->config->set_item('language', 'indonesian');
@@ -43,12 +44,12 @@ class Users extends MY_Controller
       $check_user = $this->UserModel->get_data('id', $authToken->user_id);
 
       if ($this->UserGroupModel->get_data('id', $check_user->user_group_id)) {
-        $users = $this->UserModel->get_all();
+        $pasar = $this->PasarModel->get_all();
 
         $response = [
           "status" => true,
-          "message" => 'Users retrieved',
-          "data" => $users,
+          "message" => 'Categories retrieved',
+          "data" => $pasar,
         ];
         http_response_code(200);
         echo json_encode($response);
@@ -90,12 +91,12 @@ class Users extends MY_Controller
       $check_user = $this->UserModel->get_data('id', $authToken->user_id);
 
       if ($this->UserGroupModel->get_data('id', $check_user->user_group_id)) {
-        $user = $this->UserModel->get_data('id', $id);
+        $pasar = $this->PasarModel->get_data('id', $id);
 
         $response = [
           "status" => true,
-          "message" => 'User retrieved',
-          "data" => $user,
+          "message" => 'Pasar retrieved',
+          "data" => $pasar,
         ];
         http_response_code(200);
         echo json_encode($response);
@@ -137,12 +138,7 @@ class Users extends MY_Controller
       $check_user = $this->UserModel->get_data('id', $authToken->user_id);
 
       if ($this->UserGroupModel->get_data('id', $check_user->user_group_id)) {
-        $this->form_validation->set_rules('username', 'Username', 'required|trim|min_length[4]|is_unique[m_users.username]');
-        $this->form_validation->set_rules('fullname', 'Fullname', 'required|trim|min_length[6]');
-        $this->form_validation->set_rules('email', 'E-Mail', 'required|trim|valid_email|is_unique[m_users.email]');
-        $this->form_validation->set_rules('password', 'Password', 'required|min_length[6]');
-        $this->form_validation->set_rules('peran', 'Peran', 'required|trim|is_natural');
-        $this->form_validation->set_rules('status', 'Status', 'required|trim|in_list[active,inactive]');
+        $this->form_validation->set_rules('name', 'Nama Pasar', 'required|trim|min_length[4]|is_unique[m_pasar.name]');
 
         if ($this->form_validation->run() == FALSE) {
           $errors = array();
@@ -164,20 +160,16 @@ class Users extends MY_Controller
           echo json_encode($response);
         } else {
           $payload = [
-            "username" => strtolower($this->input->post('username')),
-            "fullname" => $this->input->post('fullname'),
-            "email" => $this->input->post('email'),
-            "password" => password_hash($this->input->post('password'), PASSWORD_ARGON2I),
-            "user_group_id" => $this->input->post('peran'),
-            "status" => $this->input->post('status'),
+            "name" => $this->input->post('name'),
+            "status" => $this->input->post('status') ? 'active' : 'inactive',
           ];
 
-          $insert_user = $this->UserModel->insert_data($payload);
+          $insert_pasar = $this->PasarModel->insert_data($payload);
 
-          if ($insert_user) {
+          if ($insert_pasar) {
             $response = [
               "status" => true,
-              "message" => 'User created',
+              "message" => 'Pasar created',
               "data" => $this->input->post()
             ];
             http_response_code(200);
@@ -185,7 +177,7 @@ class Users extends MY_Controller
           } else {
             $response = [
               "status" => true,
-              "message" => 'User failed to be created'
+              "message" => 'Pasar failed to be created'
             ];
             http_response_code(400);
             echo json_encode($response);
@@ -229,12 +221,7 @@ class Users extends MY_Controller
       $check_user = $this->UserModel->get_data('id', $authToken->user_id);
 
       if ($this->UserGroupModel->get_data('id', $check_user->user_group_id)) {
-        // $this->form_validation->set_rules('username', 'Username', 'required|trim|min_length[4]');
-        $this->form_validation->set_rules('fullname', 'Fullname', 'required|trim|min_length[6]');
-        // $this->form_validation->set_rules('email', 'E-Mail', 'required|trim|valid_email');
-        $this->form_validation->set_rules('password', 'Password', 'min_length[6]');
-        $this->form_validation->set_rules('peran', 'Peran', 'required|trim|is_natural');
-        $this->form_validation->set_rules('status', 'Status', 'required|trim|in_list[active,inactive]');
+        $this->form_validation->set_rules('name', 'Nama Pasar', 'required|trim|min_length[4]');
 
         if ($this->form_validation->run() == FALSE) {
           $errors = array();
@@ -250,41 +237,50 @@ class Users extends MY_Controller
           $response = [
             "status" => false,
             "message" => 'Payload is not satisfied',
-            "data" => validation_errors()
+            "data" => $errors
           ];
           http_response_code(403);
           echo json_encode($response);
         } else {
-          $current_edited_user = $this->UserModel->get_data('id', $this->input->post('id'));
+          $current_edited_pasar = $this->PasarModel->get_data('id', $this->input->post('id'));
           $payload = [
-            "username" => $current_edited_user->username,
-            "fullname" => $this->input->post('fullname'),
-            "email" => $current_edited_user->email,
-            "password" => !$this->input->post('password') ? $current_edited_user->password : password_hash($this->input->post('password'), PASSWORD_ARGON2I),
-            "user_group_id" => $this->input->post('peran'),
-            "status" => $this->input->post('status'),
+            "name" => $this->input->post('name'),
+            "status" => $this->input->post('status') ? 'active' : 'inactive',
           ];
 
-          $where = 'id=' . $this->input->post('id');
-          $update_user = $this->UserModel->update_data($where, $payload);
-
-          if ($update_user) {
+          $is_unique_name = $this->PasarModel->get_data('name', $payload['name']);
+          if ($is_unique_name && $is_unique_name->id != $current_edited_pasar->id) {
             $response = [
-              "status" => true,
-              "message" => 'User updated',
-              "data" => $this->input->post(),
-              "affected_rows" => $update_user
+              "status" => false,
+              "message" => 'Payload is not satisfied',
+              "data" => [
+                "name" => "Nama Pasar telah digunakan"
+              ]
             ];
-            http_response_code(200);
+            http_response_code(403);
             echo json_encode($response);
           } else {
-            $response = [
-              "status" => true,
-              "message" => 'User not updated',
-              "affected_rows" => $update_user
-            ];
-            http_response_code(200);
-            echo json_encode($response);
+            $where = 'id=' . $this->input->post('id');
+            $update_pasar = $this->PasarModel->update_data($where, $payload);
+
+            if ($update_pasar) {
+              $response = [
+                "status" => true,
+                "message" => 'Pasar updated',
+                "data" => $this->input->post(),
+                "affected_rows" => $update_pasar
+              ];
+              http_response_code(200);
+              echo json_encode($response);
+            } else {
+              $response = [
+                "status" => true,
+                "message" => 'Pasar not updated',
+                "affected_rows" => $update_pasar
+              ];
+              http_response_code(200);
+              echo json_encode($response);
+            }
           }
         }
       } else {
@@ -323,24 +319,23 @@ class Users extends MY_Controller
       }
 
       $check_user = $this->UserModel->get_data('id', $authToken->user_id);
-
       if ($this->UserGroupModel->get_data('id', $check_user->user_group_id)) {
         $where = 'id=' . $this->input->post('id');
-        $delete_user = $this->UserModel->delete_data($where);
+        $delete_pasar = $this->PasarModel->delete_data($where);
 
-        if ($delete_user) {
+        if ($delete_pasar) {
           $response = [
             "status" => true,
-            "message" => 'User deleted',
-            "affected_rows" => $delete_user
+            "message" => 'Pasar deleted',
+            "affected_rows" => $delete_pasar
           ];
           http_response_code(200);
           echo json_encode($response);
         } else {
           $response = [
             "status" => false,
-            "message" => 'User not deleted',
-            "affected_rows" => $delete_user
+            "message" => 'Pasar not deleted',
+            "affected_rows" => $delete_pasar
           ];
           http_response_code(400);
           echo json_encode($response);

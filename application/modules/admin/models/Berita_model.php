@@ -116,7 +116,7 @@ class Berita_model extends CI_Model
     }
     $this->db->where('A.status', 'active');
     $this->db->order_by('A.created_at', 'desc');
-    if ($limit && $offset) {
+    if ($limit) {
       $this->db->limit($limit, $offset);
     }
     $data = $this->db->get();

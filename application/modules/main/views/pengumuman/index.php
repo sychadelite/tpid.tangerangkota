@@ -112,7 +112,7 @@
                                 <div class="col-md-6 mb-md-0 p-md-4">
                                   <img src="<?= $row->cover ?>" class="w-100" alt="..." style="border-radius: 1rem;">
                                 </div>
-                                <div class="col-md-6 p-4 pl-md-0 d-flex flex-column justify-content-start">
+                                <div class="col-md-6 p-3 p-sm-4 pl-md-0 d-flex flex-column justify-content-start">
                                   <div>
                                     <div class="d-flex flex-wrap justify-content-between card-title w-full">
                                       <div class="d-flex flex-nowrap align-items-start ">
@@ -123,14 +123,14 @@
                                     </div>
                                     <div class="d-flex flex-nowrap w-full gap-3 mt-n1 mt-sm-n3">
                                       <p class="mt-1"><?= substr(getMonthName($month), 0, 3) ?></p>
-                                      <h5 class="card-text mt-3 fw-bold"><?= $row->title ?></h5>
+                                      <h6 class="card-text mt-3 fw-bold"><?= $row->title ?></h6>
                                     </div>
                                   </div>
                                   <div class="accordion" id="accordionPanelStayOpen<?= $row->id ?>">
                                     <div class="accordion-item border-0 text-white">
                                       <div id="panelStayOpenCollapse<?= $row->id ?>" class="accordion-collapse collapse rounded-0" data-mdb-parent="#accordionPanelStayOpen<?= $row->id ?>" aria-labelledby="heading<?= $row->id ?>">
                                         <div class="accordion-body bg-primary-subtle">
-                                          <div class="line-clamp">
+                                          <div class="line-clamp" style="filter: brightness(0.8);">
                                             <?= $row->description ?>
                                           </div>
                                           <a href="/pengumuman/detail/<?= $row->slug ?>" class="stretched-link mt-5" style="filter: brightness(3.5);">

@@ -46,7 +46,7 @@ class Menus extends MY_Controller
 
       $check_user = $this->UserModel->get_data('id', $authToken->user_id);
 
-      if ($check_user->user_group_id == 1) {
+      if ($this->UserGroupModel->get_data('id', $check_user->user_group_id)) {
         $menus = $this->MenusModel->get_all();
 
         $response = [
@@ -93,7 +93,7 @@ class Menus extends MY_Controller
 
       $check_user = $this->UserModel->get_data('id', $authToken->user_id);
 
-      if ($check_user->user_group_id == 1) {
+      if ($this->UserGroupModel->get_data('id', $check_user->user_group_id)) {
         $menus = $this->MenusModel->get_data('id', $id);
 
         $response = [
@@ -140,7 +140,7 @@ class Menus extends MY_Controller
 
       $check_user = $this->UserModel->get_data('id', $authToken->user_id);
 
-      if ($check_user->user_group_id == 1) {
+      if ($this->UserGroupModel->get_data('id', $check_user->user_group_id)) {
         $this->form_validation->set_rules('parent_id', 'Parent ID', 'is_natural');
         $this->form_validation->set_rules('name', 'Nama Menu', 'required|trim|min_length[4]');
         $this->form_validation->set_rules('path', 'Path URL', 'trim');
@@ -237,7 +237,7 @@ class Menus extends MY_Controller
 
       $check_user = $this->UserModel->get_data('id', $authToken->user_id);
 
-      if ($check_user->user_group_id == 1) {
+      if ($this->UserGroupModel->get_data('id', $check_user->user_group_id)) {
         $this->form_validation->set_rules('parent_id', 'Parent ID', 'is_natural');
         $this->form_validation->set_rules('name', 'Nama Menu', 'required|trim|min_length[4]');
         $this->form_validation->set_rules('path', 'Path URL', 'trim');
@@ -331,7 +331,7 @@ class Menus extends MY_Controller
 
       $check_user = $this->UserModel->get_data('id', $authToken->user_id);
 
-      if ($check_user->user_group_id == 1) {
+      if ($this->UserGroupModel->get_data('id', $check_user->user_group_id)) {
         $where = 'id=' . $this->input->post('id');
         $delete_menu = $this->MenusModel->delete_data($where);
 
@@ -404,7 +404,7 @@ class Menus extends MY_Controller
 
       $check_user = $this->UserModel->get_data('id', $authToken->user_id);
 
-      if ($check_user->user_group_id == 1) {
+      if ($this->UserGroupModel->get_data('id', $check_user->user_group_id)) {
         $menus = $this->MenusMainModel->get_all();
         $response = [
           "status" => true,
@@ -452,7 +452,7 @@ class Menus extends MY_Controller
 
       $check_user = $this->UserModel->get_data('id', $authToken->user_id);
 
-      if ($check_user->user_group_id == 1) {
+      if ($this->UserGroupModel->get_data('id', $check_user->user_group_id)) {
         $menus = $this->MenusMainModel->get_data('id', $id);
         $parents = $this->MenusMainModel->get_all();
 
@@ -501,7 +501,7 @@ class Menus extends MY_Controller
 
       $check_user = $this->UserModel->get_data('id', $authToken->user_id);
 
-      if ($check_user->user_group_id == 1) {
+      if ($this->UserGroupModel->get_data('id', $check_user->user_group_id)) {
         $this->form_validation->set_rules('parent_id', 'Parent ID', 'is_natural');
         $this->form_validation->set_rules('name', 'Nama Menu', 'required|trim|min_length[4]');
         $this->form_validation->set_rules('path', 'Path URL', 'trim');
@@ -593,7 +593,7 @@ class Menus extends MY_Controller
 
       $check_user = $this->UserModel->get_data('id', $authToken->user_id);
 
-      if ($check_user->user_group_id == 1) {
+      if ($this->UserGroupModel->get_data('id', $check_user->user_group_id)) {
         $this->form_validation->set_rules('parent_id', 'Parent ID', 'is_natural');
         $this->form_validation->set_rules('name', 'Nama Menu', 'required|trim|min_length[4]');
         $this->form_validation->set_rules('path', 'Path URL', 'trim');
@@ -688,7 +688,7 @@ class Menus extends MY_Controller
 
       $check_user = $this->UserModel->get_data('id', $authToken->user_id);
 
-      if ($check_user->user_group_id == 1) {
+      if ($this->UserGroupModel->get_data('id', $check_user->user_group_id)) {
         $where = 'id=' . $this->input->post('id');
         $delete_menu = $this->MenusMainModel->delete_data($where);
 
@@ -746,7 +746,7 @@ class Menus extends MY_Controller
 
       $check_user = $this->UserModel->get_data('id', $authToken->user_id);
 
-      if ($check_user->user_group_id == 1) {
+      if ($this->UserGroupModel->get_data('id', $check_user->user_group_id)) {
         $payload = $this->input->post('data');
 
         // Validate the payload

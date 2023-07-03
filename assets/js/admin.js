@@ -18,6 +18,14 @@ $("input[data-bootstrap-switch]").each(function(){
   $(this).bootstrapSwitch('state', $(this).prop('checked'));
 });
 
+//Date picker
+$('#rekapvaluedate_add').datetimepicker({
+  format: 'L'
+});
+$('#rekapvaluedate_edit').datetimepicker({
+  format: 'L'
+});
+
 /* EVENTS */
 window.onload = onLoad(this);
 

@@ -13,6 +13,7 @@ class Category extends MY_Controller
 
     $this->load->model(array(
       'User_model' => 'UserModel',
+      'Usergroup_model' => 'UserGroupModel',
       'Category_model' => 'CategoryModel',
     ));
 
@@ -42,7 +43,7 @@ class Category extends MY_Controller
 
       $check_user = $this->UserModel->get_data('id', $authToken->user_id);
 
-      if ($check_user->user_group_id == 1) {
+      if ($this->UserGroupModel->get_data('id', $check_user->user_group_id)) {
         $category = $this->CategoryModel->get_all();
 
         $response = [
@@ -89,7 +90,7 @@ class Category extends MY_Controller
 
       $check_user = $this->UserModel->get_data('id', $authToken->user_id);
 
-      if ($check_user->user_group_id == 1) {
+      if ($this->UserGroupModel->get_data('id', $check_user->user_group_id)) {
         $category = $this->CategoryModel->get_data('id', $id);
 
         $response = [
@@ -136,7 +137,7 @@ class Category extends MY_Controller
 
       $check_user = $this->UserModel->get_data('id', $authToken->user_id);
 
-      if ($check_user->user_group_id == 1) {
+      if ($this->UserGroupModel->get_data('id', $check_user->user_group_id)) {
         $this->form_validation->set_rules('name', 'Nama Kategori', 'required|trim|min_length[4]|is_unique[m_category.name]');
         $this->form_validation->set_rules('type', 'Tipe', 'required|trim|min_length[4]');
         $this->form_validation->set_rules('description', 'Deskripsi', 'trim|min_length[6]');
@@ -222,7 +223,7 @@ class Category extends MY_Controller
 
       $check_user = $this->UserModel->get_data('id', $authToken->user_id);
 
-      if ($check_user->user_group_id == 1) {
+      if ($this->UserGroupModel->get_data('id', $check_user->user_group_id)) {
         $this->form_validation->set_rules('name', 'Nama Kategori', 'required|trim|min_length[4]');
         $this->form_validation->set_rules('type', 'Tipe', 'required|trim|min_length[4]');
         $this->form_validation->set_rules('description', 'Deskripsi', 'trim|min_length[6]');
@@ -324,7 +325,7 @@ class Category extends MY_Controller
       }
 
       $check_user = $this->UserModel->get_data('id', $authToken->user_id);
-      if ($check_user->user_group_id == 1) {
+      if ($this->UserGroupModel->get_data('id', $check_user->user_group_id)) {
         $where = 'id=' . $this->input->post('id');
         $delete_category = $this->CategoryModel->delete_data($where);
 

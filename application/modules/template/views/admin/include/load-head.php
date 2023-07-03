@@ -23,6 +23,8 @@
 
   <link rel="stylesheet" href="/assets/vendor/AdminLTE-3.2.0/plugins/dropzone/min/dropzone.min.css">
 
+  <link rel="stylesheet" href="/assets/vendor/AdminLTE-3.2.0/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+
   <link rel="stylesheet" href="/assets/vendor/AdminLTE-3.2.0/dist/css/adminlte.min.css?v=3.2.0">
 
   <!-- jQuery JavaScript Library v3.6.0 -->

@@ -35,116 +35,88 @@
                   </div>
                   <div class="alert alert-secondary py-2 px-3" role="alert">
                     <div>
-                      <div id="post-list-harga-komoditas">
-                        <div class="w-auto my-3">
-                          <div class="btn-group w-100">
-                            <button class="btn btn-light text-nowrap p-2 pe-none" style="border-top-right-radius: 0px; border-bottom-right-radius: 0px;">
-                              Pasar :
+                      <form action="/komoditas" method="post" autocomplete="off">
+                        <input type="hidden" name="<?= $content['csrf']['name']; ?>" value="<?= $content['csrf']['hash']; ?>" />
+                        <div id="post-list-harga-komoditas">
+                          <div class="w-auto my-3">
+                            <div class="btn-group w-100">
+                              <button class="btn btn-light text-nowrap p-2 pe-none" style="border-top-right-radius: 0px; border-bottom-right-radius: 0px;">
+                                Pasar :
+                              </button>
+                              <select class="form-select" id="pasar" name="pasar" aria-label="Select Pasar" style="border-top-left-radius: 0px; border-bottom-left-radius: 0px;">
+                                <option value="0" selected="">-- Pilih --</option>
+                                <?php foreach ($content['data_all_pasar'] as $key => $row) { ?>
+                                  <option value="<?= $row->id; ?>"><?= $row->name; ?></option>
+                                <?php } ?>
+                              </select>
+                            </div>
+                          </div>
+                          <div class="w-auto my-3">
+                            <div class="btn-group w-100">
+                              <button class="btn btn-light text-nowrap p-2 pe-none" style="border-top-right-radius: 0px; border-bottom-right-radius: 0px;">
+                                Kelompok :
+                              </button>
+                              <select class="form-select" id="kelompok" name="kelompok" aria-label="Select Kelompok" style="border-top-left-radius: 0px; border-bottom-left-radius: 0px;">
+                                <option value="0" selected="">-- Pilih --</option>
+                                <?php foreach ($content['data_all_kelompok_komoditas'] as $key => $row) { ?>
+                                  <option value="<?= $row->id; ?>"><?= $row->name; ?></option>
+                                <?php } ?>
+                              </select>
+                            </div>
+                          </div>
+                          <div class="w-auto my-3">
+                            <div class="btn-group w-100">
+                              <button class="btn btn-light text-nowrap p-2 pe-none" style="border-top-right-radius: 0px; border-bottom-right-radius: 0px;">
+                                Jenis :
+                              </button>
+                              <select class="form-select" id="jenis" name="jenis" aria-label="Select Jenis" style="border-top-left-radius: 0px; border-bottom-left-radius: 0px;">
+                                <option value="0" selected="">-- Pilih --</option>
+                                <?php foreach ($content['data_all_jenis_komoditas'] as $key => $row) { ?>
+                                  <option value="<?= $row->id; ?>"><?= $row->name; ?></option>
+                                <?php } ?>
+                              </select>
+                            </div>
+                          </div>
+                          <div class="w-auto my-3">
+                            <div class="btn-group w-100">
+                              <button class="btn btn-light text-nowrap p-2 pe-none" style="border-top-right-radius: 0px; border-bottom-right-radius: 0px;">
+                                Bulan :
+                              </button>
+                              <select class="form-select" id="bulan" name="bulan" aria-label="Select Bulan" style="border-top-left-radius: 0px; border-bottom-left-radius: 0px;">
+                                <option value="01" <?= $month == "01" ? 'selected' : '' ?>>Januari</option>
+                                <option value="02" <?= $month == "02" ? 'selected' : '' ?>>Februari</option>
+                                <option value="03" <?= $month == "03" ? 'selected' : '' ?>>Maret</option>
+                                <option value="04" <?= $month == "04" ? 'selected' : '' ?>>April</option>
+                                <option value="05" <?= $month == "05" ? 'selected' : '' ?>>Mei</option>
+                                <option value="06" <?= $month == "06" ? 'selected' : '' ?>>Juni</option>
+                                <option value="07" <?= $month == "07" ? 'selected' : '' ?>>Juli</option>
+                                <option value="08" <?= $month == "08" ? 'selected' : '' ?>>Agustus</option>
+                                <option value="09" <?= $month == "09" ? 'selected' : '' ?>>September</option>
+                                <option value="10" <?= $month == "10" ? 'selected' : '' ?>>Oktober</option>
+                                <option value="11" <?= $month == "11" ? 'selected' : '' ?>>November</option>
+                                <option value="12" <?= $month == "12" ? 'selected' : '' ?>>Desember</option>
+                              </select>
+                            </div>
+                          </div>
+                          <div class="w-auto my-3">
+                            <div class="btn-group w-100">
+                              <button class="btn btn-light text-nowrap p-2 pe-none" style="border-top-right-radius: 0px; border-bottom-right-radius: 0px;">
+                                Tahun :
+                              </button>
+                              <select class="form-select" id="tahun" name="tahun" aria-label="Select Tahun" style="border-top-left-radius: 0px; border-bottom-left-radius: 0px;">
+                                <?php for ($i = ((int) date("Y") - 2015); $i >= 0; $i--) { ?>
+                                  <option value="<?= 2015 + $i ?>" <?= (2015 + $i) == $year ? 'selected' : '' ?>><?= 2015 + $i ?></option>
+                                <?php } ?>
+                              </select>
+                            </div>
+                          </div>
+                          <div class="text-center my-4">
+                            <button class="btn btn-success">
+                              Submit
                             </button>
-                            <select class="form-select" aria-label="Select Pasar" style="border-top-left-radius: 0px; border-bottom-left-radius: 0px;">
-                              <option value="0" selected="">-- Pilih --</option>
-                              <option value="1">Anyar</option>
-                              <option value="2">Bandeng</option>
-                              <option value="30">Cibodas</option>
-                              <option value="3">Gerendeng</option>
-                              <option value="32">Grand Duta</option>
-                              <option value="31">Jatake</option>
-                              <option value="4">Laris Cibodas</option>
-                              <option value="5">Malabar</option>
-                              <option value="51">Pasar Jajanan Cisadane Walk</option>
-                              <option value="50">Pasar Jajanan Gajah Tunggal</option>
-                              <option value="52">Pasar Jajanan Jembatan Berendeng</option>
-                              <option value="48">Pasar Jajanan Taman Potret</option>
-                              <option value="49">Pasar Jajanan Teras Cisadane</option>
-                              <option value="34">Pasar Lingkungan Periuk Jaya</option>
-                              <option value="45">Pasar Lingkungan Batuceper</option>
-                              <option value="36">Pasar Lingkungan Benda</option>
-                              <option value="40">Pasar Lingkungan Cibodas Baru</option>
-                              <option value="39">Pasar Lingkungan Cimone</option>
-                              <option value="47">Pasar Lingkungan Cipondoh Indah</option>
-                              <option value="42">Pasar Lingkungan Gebang Raya</option>
-                              <option value="37">Pasar Lingkungan Kunciran Indah</option>
-                              <option value="35">Pasar Lingkungan Larangan Utara</option>
-                              <option value="33">Pasar LIngkungan Manis Jaya</option>
-                              <option value="44">Pasar Lingkungan Nambo Jaya</option>
-                              <option value="38">Pasar Lingkungan Nusa Jaya</option>
-                              <option value="43">Pasar Lingkungan Pabuaran Tumpeng</option>
-                              <option value="53">Pasar Lingkungan Pasar Baru</option>
-                              <option value="46">Pasar Lingkungan Pondok Bahar</option>
-                              <option value="41">Pasar Lingkungan Sangiang Jaya</option>
-                              <option value="6">Poris Indah</option>
-                              <option value="7">Ramadhani</option>
-                            </select>
                           </div>
                         </div>
-                        <div class="w-auto my-3">
-                          <div class="btn-group w-100">
-                            <button class="btn btn-light text-nowrap p-2 pe-none" style="border-top-right-radius: 0px; border-bottom-right-radius: 0px;">
-                              Kelompok :
-                            </button>
-                            <select class="form-select" aria-label="Select Kelompok" style="border-top-left-radius: 0px; border-bottom-left-radius: 0px;">
-                              <option value="1" selected="">Komoditas Strategis</option>
-                              <option value="2">Komoditas Lain</option>
-                            </select>
-                          </div>
-                        </div>
-                        <div class="w-auto my-3">
-                          <div class="btn-group w-100">
-                            <button class="btn btn-light text-nowrap p-2 pe-none" style="border-top-right-radius: 0px; border-bottom-right-radius: 0px;">
-                              Jenis :
-                            </button>
-                            <select class="form-select" aria-label="Select Jenis" style="border-top-left-radius: 0px; border-bottom-left-radius: 0px;">
-                              <option value="0" selected="">-- Pilih --</option>
-                              <option value="1">Sembako</option>
-                              <option value="2">Daging</option>
-                              <option value="3">Sayur</option>
-                              <option value="4">Buah</option>
-                              <option value="5">Bumbu</option>
-                            </select>
-                          </div>
-                        </div>
-                        <div class="w-auto my-3">
-                          <div class="btn-group w-100">
-                            <button class="btn btn-light text-nowrap p-2 pe-none" style="border-top-right-radius: 0px; border-bottom-right-radius: 0px;">
-                              Bulan :
-                            </button>
-                            <select class="form-select" aria-label="Select Bulan" style="border-top-left-radius: 0px; border-bottom-left-radius: 0px;">
-                              <option value="1" <?php echo set_value('bulan_pengumuman') == 'Januari' ? 'selected' : '' ?>>Januari</option>
-                              <option value="2" <?php echo set_value('bulan_pengumuman') == 'Februari' ? 'selected' : '' ?>>Februari</option>
-                              <option value="3" <?php echo set_value('bulan_pengumuman') == 'Maret' ? 'selected' : '' ?>>Maret</option>
-                              <option value="4" <?php echo set_value('bulan_pengumuman') == 'April' ? 'selected' : '' ?>>April</option>
-                              <option value="5" <?php echo set_value('bulan_pengumuman') == 'Mei' ? 'selected' : '' ?>>Mei</option>
-                              <option value="6" <?php echo set_value('bulan_pengumuman') == 'Juni' ? 'selected' : '' ?>>Juni</option>
-                              <option value="7" <?php echo set_value('bulan_pengumuman') == 'Juli' ? 'selected' : '' ?>>Juli</option>
-                              <option value="8" <?php echo set_value('bulan_pengumuman') == 'Agustus' ? 'selected' : '' ?>>Agustus</option>
-                              <option value="9" <?php echo set_value('bulan_pengumuman') == 'September' ? 'selected' : '' ?>>September</option>
-                              <option value="10" <?php echo set_value('bulan_pengumuman') == 'Oktober' ? 'selected' : '' ?>>Oktober</option>
-                              <option value="11" <?php echo set_value('bulan_pengumuman') == 'November' ? 'selected' : '' ?>>November</option>
-                              <option value="12" <?php echo set_value('bulan_pengumuman') == 'Desember' ? 'selected' : '' ?>>Desember</option>
-                            </select>
-                          </div>
-                        </div>
-                        <div class="w-auto my-3">
-                          <div class="btn-group w-100">
-                            <button class="btn btn-light text-nowrap p-2 pe-none" style="border-top-right-radius: 0px; border-bottom-right-radius: 0px;">
-                              Tahun :
-                            </button>
-                            <select class="form-select" aria-label="Select Tahun" style="border-top-left-radius: 0px; border-bottom-left-radius: 0px;">
-                              <option value="2023" selected="">2023</option>
-                              <option value="2022">2022</option>
-                              <option value="2021">2021</option>
-                              <option value="2020">2020</option>
-                              <option value="2019">2019</option>
-                              <option value="2018">2018</option>
-                            </select>
-                          </div>
-                        </div>
-                        <div class="text-center my-4">
-                          <button class="btn btn-success">
-                            Submit
-                          </button>
-                        </div>
-                      </div>
+                      </form>
                     </div>
                   </div>
                 </div>
@@ -160,7 +132,7 @@
                         Lihat Rekapitulasi
                       </a>
                     </li>
-                    <li class="nav-item" role="presentation">
+                    <!-- <li class="nav-item" role="presentation">
                       <a class="nav-link" id="ex2-tab-2" data-mdb-toggle="pill" href="#ex2-pills-2" role="tab" aria-controls="ex2-pills-2" aria-selected="false">
                         Very very very very long link
                       </a>
@@ -169,7 +141,7 @@
                       <a class="nav-link" id="ex2-tab-3" data-mdb-toggle="pill" href="#ex2-pills-3" role="tab" aria-controls="ex2-pills-3" aria-selected="false">
                         Another link
                       </a>
-                    </li>
+                    </li> -->
                   </ul>
                   <!-- Pills navs -->
 
@@ -193,7 +165,12 @@
                           </div>
                         </div>
                         <div class="w-100 border border-bottom-0">
-                          <h5 class="m-0 fw-bold w-100"><span class="badge badge-light w-100 px-3 py-2"><i class="fa-solid fa-calendar-week me-2"></i>Bulan Juli 2023</span></h5>
+                          <h5 class="m-0 fw-bold w-100">
+                            <span class="badge badge-light w-100 px-3 py-2">
+                              <i class="fa-solid fa-calendar-week me-2"></i>
+                              Bulan <?= $monthName . " " . $year ?>
+                            </span>
+                          </h5>
                         </div>
                         <table id="table_harga_komoditas" class="stripe header-border cell-border row-border order-column hover w-100">
                           <thead></thead>
@@ -235,55 +212,93 @@
   });
 
   function initDataTable() {
-    const groupHeadData = [
-      { text: 'No', colspan: 1, rowspan: 2, className: 'group-header text-center', style: 'text-align: center; border-top: 1px solid rgba(0, 0, 0, 0.3); border-right: 1px solid rgba(0, 0, 0, 0.3);' },
-      { text: 'Komoditas', colspan: 2, rowspan: 1, className: 'group-header text-center', style: 'text-align: center; border-top: 1px solid rgba(0, 0, 0, 0.3); border-right: 1px solid rgba(0, 0, 0, 0.3);' },
-      { text: 'Pasar', colspan: 31, rowspan: 1, className: 'group-header text-center', style: 'text-align: center; border-top: 1px solid rgba(0, 0, 0, 0.3); border-right: 1px solid rgba(0, 0, 0, 0.3);' },
-      { text: 'Rata-Rata', colspan: 2, rowspan: 1, className: 'group-header text-center', style: 'text-align: center; border-top: 1px solid rgba(0, 0, 0, 0.3); border-right: 1px solid rgba(0, 0, 0, 0.3);' },
-      { text: 'Perubahan', colspan: 2, rowspan: 1, className: 'group-header text-center', style: 'text-align: center; border-top: 1px solid rgba(0, 0, 0, 0.3);' },
+    const groupHeadData = [{
+        text: 'No',
+        colspan: 1,
+        rowspan: 2,
+        className: 'group-header text-center',
+        style: 'text-align: center; border-top: 1px solid rgba(0, 0, 0, 0.3); border-right: 1px solid rgba(0, 0, 0, 0.3);'
+      },
+      {
+        text: 'Komoditas',
+        colspan: 2,
+        rowspan: 1,
+        className: 'group-header text-center',
+        style: 'text-align: center; border-top: 1px solid rgba(0, 0, 0, 0.3); border-right: 1px solid rgba(0, 0, 0, 0.3);'
+      },
+      {
+        text: 'Pasar',
+        colspan: 31,
+        rowspan: 1,
+        className: 'group-header text-center',
+        style: 'text-align: center; border-top: 1px solid rgba(0, 0, 0, 0.3); border-right: 1px solid rgba(0, 0, 0, 0.3);'
+      },
+      {
+        text: 'Rata-Rata',
+        colspan: 2,
+        rowspan: 1,
+        className: 'group-header text-center',
+        style: 'text-align: center; border-top: 1px solid rgba(0, 0, 0, 0.3); border-right: 1px solid rgba(0, 0, 0, 0.3);'
+      },
+      {
+        text: 'Perubahan',
+        colspan: 2,
+        rowspan: 1,
+        className: 'group-header text-center',
+        style: 'text-align: center; border-top: 1px solid rgba(0, 0, 0, 0.3);'
+      },
     ];
 
-    const colHeadData = [
-      { text: 'Nama', colspan: 1, rowspan: 1 },
-      { text: 'Satuan', colspan: 1, rowspan: 1 },
-      { text: 'Anyar', colspan: 1, rowspan: 1 },
-      { text: 'Bandeng', colspan: 1, rowspan: 1 },
-      { text: 'Cibodas', colspan: 1, rowspan: 1 },
-      { text: 'Gerendeng', colspan: 1, rowspan: 1 },
-      { text: 'Grand Duta', colspan: 1, rowspan: 1 },
-      { text: 'Jatake', colspan: 1, rowspan: 1 },
-      { text: 'Laris Cibodas', colspan: 1, rowspan: 1 },
-      { text: 'Malabar', colspan: 1, rowspan: 1 },
-      { text: 'Jajanan Cisadane Walk', colspan: 1, rowspan: 1 },
-      { text: 'Jajanan Gajah Tunggal', colspan: 1, rowspan: 1 },
-      { text: 'Jajanan Jembatan Berendeng', colspan: 1, rowspan: 1 },
-      { text: 'Jajanan Taman Potret', colspan: 1, rowspan: 1 },
-      { text: 'Jajanan Teras Cisadane', colspan: 1, rowspan: 1 },
-      { text: 'Lingkungan Periuk Jaya', colspan: 1, rowspan: 1 },
-      { text: 'Lingkungan Batuceper', colspan: 1, rowspan: 1 },
-      { text: 'Lingkungan Benda', colspan: 1, rowspan: 1 },
-      { text: 'Lingkungan Cibodas Baru', colspan: 1, rowspan: 1 },
-      { text: 'Lingkungan Cimone', colspan: 1, rowspan: 1 },
-      { text: 'Lingkungan Cipondoh Indah', colspan: 1, rowspan: 1 },
-      { text: 'Lingkungan Gebang Raya', colspan: 1, rowspan: 1 },
-      { text: 'Lingkungan Kunciran Indah', colspan: 1, rowspan: 1 },
-      { text: 'Lingkungan Larangan Utara', colspan: 1, rowspan: 1 },
-      { text: 'LIngkungan Manis Jaya', colspan: 1, rowspan: 1 },
-      { text: 'Lingkungan Nambo Jaya', colspan: 1, rowspan: 1 },
-      { text: 'Lingkungan Nusa Jaya', colspan: 1, rowspan: 1 },
-      { text: 'Lingkungan Pabuaran Tumpeng', colspan: 1, rowspan: 1 },
-      { text: 'Lingkungan Pasar Baru', colspan: 1, rowspan: 1 },
-      { text: 'Lingkungan Pondok Bahar', colspan: 1, rowspan: 1 },
-      { text: 'Lingkungan Sangiang Jaya', colspan: 1, rowspan: 1 },
-      { text: 'Poris Indah', colspan: 1, rowspan: 1 },
-      { text: 'Ramadhani', colspan: 1, rowspan: 1 },
-      { text: 'Bulan Sebelumnya', colspan: 1, rowspan: 1 },
-      { text: 'Bulan Ini', colspan: 1, rowspan: 1 },
-      { text: '(Rp)', colspan: 1, rowspan: 1 },
-      { text: '(%)', colspan: 1, rowspan: 1 },
+    const colHeadData = [{
+        text: 'Nama',
+        colspan: 1,
+        rowspan: 1
+      },
+      {
+        text: 'Satuan',
+        colspan: 1,
+        rowspan: 1
+      },
+      {
+        text: 'Bulan Sebelumnya',
+        colspan: 1,
+        rowspan: 1
+      },
+      {
+        text: 'Bulan Ini',
+        colspan: 1,
+        rowspan: 1
+      },
+      {
+        text: '(Rp)',
+        colspan: 1,
+        rowspan: 1
+      },
+      {
+        text: '(%)',
+        colspan: 1,
+        rowspan: 1
+      },
     ];
 
-    const bodyData = [
+    const pasarData = <?= json_encode($content['data_all_pasar']) ?>;
+
+    const appendedData = pasarData.map(item => ({
+      text: item.name,
+      colspan: 1,
+      rowspan: 1
+    }));
+
+    // Find the index of the "Satuan" and "Bulan Sebelumnya" rows
+    let satuanIndex = colHeadData.findIndex(item => item.text === 'Satuan');
+    let bulanSebelumnyaIndex = colHeadData.findIndex(item => item.text === 'Bulan Sebelumnya');
+
+    // Insert the new data after the "Satuan" row
+    colHeadData.splice(satuanIndex + 1, 0, ...appendedData);
+
+    const rekapData = <?= json_encode($content['data_all_rekapitulasi_komoditas']) ?>;
+
+    let bodyData = [
       ["1", "Beras IR I", "kg", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "0", "0", "Rp. 0.00", "0%"],
       ["2", "Beras IR II", "kg", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "0", "0", "Rp. 0.00", "0%"],
       ["3", "Gula Pasir Impor", "kg", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "0", "0", "Rp. 0.00", "0%"],
@@ -320,6 +335,29 @@
       ["34", "Jagung Tongkol", "kg", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "0", "0", "Rp. 0.00", "0%"],
     ];
 
+    const temp = [];
+    rekapData.forEach((item, index) => {
+      const arr = [
+        index + 1,
+        item.komoditas_name,
+        item.komoditas_unit,
+      ];
+      pasarData.forEach((row, index) => {
+        arr.push(0);
+      });
+      const bulanSebelumnya = 0;
+      const bulanIni = 0;
+      const rupiah = 'Rp. 0.00';
+      const percent = '0%';
+      arr.push(bulanSebelumnya);
+      arr.push(bulanIni);
+      arr.push(rupiah);
+      arr.push(percent);
+      temp.push(arr);
+    });
+
+    bodyData = temp;
+
     const thead = $('#table_harga_komoditas thead');
     const trGroupHeader = $('<tr>');
     const trColumnHeader = $('<tr>');
@@ -354,8 +392,7 @@
       responsive: {
         details: false // Disable fixed columns on small screens
       },
-      columnDefs: [
-        {
+      columnDefs: [{
           targets: 0, // Target the first column
           className: 'index-column dt-center', // Add a class to style the index column if desired
           render: function(data, type, row, meta) {
@@ -379,7 +416,10 @@
     });
 
     // Set the table wrapper width to 100%
-    $('#table_harga_komoditas_wrapper').css({ 'width': '100%', 'font-size': '12px' });
+    $('#table_harga_komoditas_wrapper').css({
+      'width': '100%',
+      'font-size': '12px'
+    });
 
     // Apply background color to fixed right column rows
     $('.dtfc-fixed-left, .dtfc-fixed-right').css({
@@ -388,7 +428,7 @@
     });
 
     // Custom search function
-    $('#input_search_box_table_harga_komoditas').keyup(function () {
+    $('#input_search_box_table_harga_komoditas').keyup(function() {
       dataTableHargaKomoditas.search($(this).val()).draw();
     });
 

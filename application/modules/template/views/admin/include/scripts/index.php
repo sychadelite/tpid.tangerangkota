@@ -29,10 +29,13 @@
 <script src="/assets/vendor/AdminLTE-3.2.0/plugins/moment/moment.min.js"></script>
 <script src="/assets/vendor/AdminLTE-3.2.0/plugins/inputmask/jquery.inputmask.min.js"></script>
 
-<script src="/assets/vendor/AdminLTE-3.2.0/plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
 <script src="/assets/vendor/AdminLTE-3.2.0/plugins/daterangepicker/daterangepicker.js"></script>
+<script src="/assets/vendor/AdminLTE-3.2.0/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+
+<script src="/assets/vendor/AdminLTE-3.2.0/plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
 
 <script src="/assets/vendor/AdminLTE-3.2.0/dist/js/demo.js"></script>
+
 
 <!-- Custom -->
 <script src="<?php echo base_url('assets/js/admin.js') ?>"></script>

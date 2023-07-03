@@ -13,6 +13,7 @@ class Berita extends MY_Controller
 
     $this->load->model(array(
       'User_model' => 'UserModel',
+      'Usergroup_model' => 'UserGroupModel',
       'Berita_model' => 'BeritaModel',
       'Beritafiles_model' => 'BeritaFilesModel',
       'Category_model' => 'CategoryModel',
@@ -44,7 +45,7 @@ class Berita extends MY_Controller
 
       $check_user = $this->UserModel->get_data('id', $authToken->user_id);
 
-      if ($check_user->user_group_id == 1) {
+      if ($this->UserGroupModel->get_data('id', $check_user->user_group_id)) {
         $berita = $this->BeritaModel->get_all();
 
         $response = [
@@ -91,7 +92,7 @@ class Berita extends MY_Controller
 
       $check_user = $this->UserModel->get_data('id', $authToken->user_id);
 
-      if ($check_user->user_group_id == 1) {
+      if ($this->UserGroupModel->get_data('id', $check_user->user_group_id)) {
         $berita = $this->BeritaModel->get_all_data('category', $category);
 
         $response = [
@@ -138,7 +139,7 @@ class Berita extends MY_Controller
 
       $check_user = $this->UserModel->get_data('id', $authToken->user_id);
 
-      if ($check_user->user_group_id == 1) {
+      if ($this->UserGroupModel->get_data('id', $check_user->user_group_id)) {
         $berita = $this->BeritaModel->get_data('id', $id);
         $files = $this->BeritaModel->get_files('id', $id);
 
@@ -187,7 +188,7 @@ class Berita extends MY_Controller
 
       $check_user = $this->UserModel->get_data('id', $authToken->user_id);
 
-      if ($check_user->user_group_id == 1) {
+      if ($this->UserGroupModel->get_data('id', $check_user->user_group_id)) {
         $this->form_validation->set_rules('title', 'Title', 'required|trim|min_length[4]|is_unique[m_berita.title]');
         $this->form_validation->set_rules('slug', 'Slug', 'required|trim|min_length[4]|is_unique[m_berita.slug]');
         $this->form_validation->set_rules('description', 'Deskripsi', 'trim|min_length[6]');
@@ -315,7 +316,7 @@ class Berita extends MY_Controller
 
       $check_user = $this->UserModel->get_data('id', $authToken->user_id);
 
-      if ($check_user->user_group_id == 1) {
+      if ($this->UserGroupModel->get_data('id', $check_user->user_group_id)) {
         $this->form_validation->set_rules('title', 'Title', 'required|trim|min_length[4]');
         $this->form_validation->set_rules('slug', 'Slug', 'required|trim|min_length[4]');
         $this->form_validation->set_rules('description', 'Deskripsi', 'trim|min_length[6]');
@@ -475,7 +476,7 @@ class Berita extends MY_Controller
       }
 
       $check_user = $this->UserModel->get_data('id', $authToken->user_id);
-      if ($check_user->user_group_id == 1) {
+      if ($this->UserGroupModel->get_data('id', $check_user->user_group_id)) {
         $files = $this->BeritaModel->get_files('id', $this->input->post('id'));
         for ($i = 0; $i < count($files); $i++) {
           if (!empty($files[$i]->file_path)) {

@@ -13,6 +13,7 @@ class Banner extends MY_Controller
 
     $this->load->model(array(
       'User_model' => 'UserModel',
+      'Usergroup_model' => 'UserGroupModel',
       'Banner_model' => 'BannerModel',
     ));
 
@@ -42,7 +43,7 @@ class Banner extends MY_Controller
 
       $check_user = $this->UserModel->get_data('id', $authToken->user_id);
 
-      if ($check_user->user_group_id == 1) {
+      if ($this->UserGroupModel->get_data('id', $check_user->user_group_id)) {
         $banner = $this->BannerModel->get_all();
 
         $response = [
@@ -89,7 +90,7 @@ class Banner extends MY_Controller
 
       $check_user = $this->UserModel->get_data('id', $authToken->user_id);
 
-      if ($check_user->user_group_id == 1) {
+      if ($this->UserGroupModel->get_data('id', $check_user->user_group_id)) {
         $banner = $this->BannerModel->get_data('id', $id);
 
         $response = [
@@ -136,7 +137,7 @@ class Banner extends MY_Controller
 
       $check_user = $this->UserModel->get_data('id', $authToken->user_id);
 
-      if ($check_user->user_group_id == 1) {
+      if ($this->UserGroupModel->get_data('id', $check_user->user_group_id)) {
         $this->form_validation->set_rules('name', 'Nama Banner', 'required|trim|min_length[4]|is_unique[m_banner.name]');
         $this->form_validation->set_rules('description', 'Deskripsi', 'trim|min_length[6]');
 
@@ -243,7 +244,7 @@ class Banner extends MY_Controller
 
       $check_user = $this->UserModel->get_data('id', $authToken->user_id);
 
-      if ($check_user->user_group_id == 1) {
+      if ($this->UserGroupModel->get_data('id', $check_user->user_group_id)) {
         $this->form_validation->set_rules('name', 'Nama Banner', 'required|trim|min_length[4]');
         $this->form_validation->set_rules('description', 'Deskripsi', 'trim|min_length[6]');
 
@@ -376,7 +377,7 @@ class Banner extends MY_Controller
       }
 
       $check_user = $this->UserModel->get_data('id', $authToken->user_id);
-      if ($check_user->user_group_id == 1) {
+      if ($this->UserGroupModel->get_data('id', $check_user->user_group_id)) {
         $where = 'id=' . $this->input->post('id');
         $delete_banner = $this->BannerModel->delete_data($where);
 

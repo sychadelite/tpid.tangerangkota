@@ -44,7 +44,7 @@ class Rolepermissions extends MY_Controller
 
       $check_user = $this->UserModel->get_data('id', $authToken->user_id);
 
-      if ($check_user->user_group_id == 1) {
+      if ($this->UserGroupModel->get_data('id', $check_user->user_group_id)) {
         $role_permissions = $this->UserGroupModel->get_all();
 
         $response = [
@@ -91,7 +91,7 @@ class Rolepermissions extends MY_Controller
 
       $check_user = $this->UserModel->get_data('id', $authToken->user_id);
 
-      if ($check_user->user_group_id == 1) {
+      if ($this->UserGroupModel->get_data('id', $check_user->user_group_id)) {
         $rolepermission = $this->UserGroupModel->get_data('id', $id);
         $menus = $this->MenusModel->get_all();
         $availableMenus = $this->MenusUsersGroupModel->get_all_data_group('user_group_id', $id);
@@ -142,7 +142,7 @@ class Rolepermissions extends MY_Controller
 
       $check_user = $this->UserModel->get_data('id', $authToken->user_id);
 
-      if ($check_user->user_group_id == 1) {
+      if ($this->UserGroupModel->get_data('id', $check_user->user_group_id)) {
         $this->form_validation->set_rules('name', 'Nama Hak Akses', 'required|trim|min_length[4]|is_unique[m_users_group.name]');
 
         if ($this->form_validation->run() == FALSE) {
@@ -252,7 +252,7 @@ class Rolepermissions extends MY_Controller
 
       $check_user = $this->UserModel->get_data('id', $authToken->user_id);
 
-      if ($check_user->user_group_id == 1) {
+      if ($this->UserGroupModel->get_data('id', $check_user->user_group_id)) {
         $this->form_validation->set_rules('name', 'Nama Hak Akses', 'required|trim|min_length[4]');
 
         if ($this->form_validation->run() == FALSE) {
@@ -358,7 +358,7 @@ class Rolepermissions extends MY_Controller
 
       $check_user = $this->UserModel->get_data('id', $authToken->user_id);
 
-      if ($check_user->user_group_id == 1) {
+      if ($this->UserGroupModel->get_data('id', $check_user->user_group_id)) {
         $where = 'id=' . $this->input->post('id');
         $delete_role_permission = $this->UserGroupModel->delete_data($where);
 

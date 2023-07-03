@@ -6,7 +6,7 @@ class Template extends MY_Controller
   {
     parent::__construct();
 
-    $this->load->helper(['datetime']);
+    $this->load->helper(['datetime', 'text']);
 
     $this->load->model(array(
       'admin/Menus_model' => 'MenusModel',
