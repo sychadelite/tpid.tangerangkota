@@ -45,6 +45,7 @@ class Komoditas extends MY_Controller
       $data['content']['data_all_jenis_komoditas'] = $this->KomoditasJenisModel->get_all();
       $data['content']['data_all_kelompok_komoditas'] = $this->KomoditasKelompokModel->get_all();
       $data['content']['data_all_rekapitulasi_komoditas'] = $this->KomoditasRekapitulasiModel->get_all($yearMonth);
+      $data['content']['data_all_rekapitulasi_group_komoditas'] = $this->KomoditasRekapitulasiModel->get_all_group_komoditas($yearMonth);
       $data['content']['data_all_pasar'] = $this->PasarModel->get_all();
     } else {
       $data['year'] = $payload['year'];
@@ -54,6 +55,7 @@ class Komoditas extends MY_Controller
       $data['content']['data_all_jenis_komoditas'] = $this->KomoditasJenisModel->get_all();
       $data['content']['data_all_kelompok_komoditas'] = $this->KomoditasKelompokModel->get_all();
       $data['content']['data_all_rekapitulasi_komoditas'] = $this->KomoditasRekapitulasiModel->get_all($yearMonth);
+      $data['content']['data_all_rekapitulasi_group_komoditas'] = $this->KomoditasRekapitulasiModel->get_all_group_komoditas($yearMonth);
       $data['content']['data_all_pasar'] = $this->PasarModel->get_all();
     }
 

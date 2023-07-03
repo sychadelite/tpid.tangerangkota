@@ -212,6 +212,13 @@
   });
 
   function initDataTable() {
+
+    const pasarData = <?= json_encode($content['data_all_pasar']) ?>;
+
+    const groupKomoditas = <?= json_encode($content['data_all_rekapitulasi_group_komoditas']) ?>
+
+    const rekapData = <?= json_encode($content['data_all_rekapitulasi_komoditas']) ?>;
+
     const groupHeadData = [{
         text: 'No',
         colspan: 1,
@@ -228,7 +235,7 @@
       },
       {
         text: 'Pasar',
-        colspan: 31,
+        colspan: pasarData.length,
         rowspan: 1,
         className: 'group-header text-center',
         style: 'text-align: center; border-top: 1px solid rgba(0, 0, 0, 0.3); border-right: 1px solid rgba(0, 0, 0, 0.3);'
@@ -281,23 +288,6 @@
       },
     ];
 
-    const pasarData = <?= json_encode($content['data_all_pasar']) ?>;
-
-    const appendedData = pasarData.map(item => ({
-      text: item.name,
-      colspan: 1,
-      rowspan: 1
-    }));
-
-    // Find the index of the "Satuan" and "Bulan Sebelumnya" rows
-    let satuanIndex = colHeadData.findIndex(item => item.text === 'Satuan');
-    let bulanSebelumnyaIndex = colHeadData.findIndex(item => item.text === 'Bulan Sebelumnya');
-
-    // Insert the new data after the "Satuan" row
-    colHeadData.splice(satuanIndex + 1, 0, ...appendedData);
-
-    const rekapData = <?= json_encode($content['data_all_rekapitulasi_komoditas']) ?>;
-
     let bodyData = [
       ["1", "Beras IR I", "kg", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "0", "0", "Rp. 0.00", "0%"],
       ["2", "Beras IR II", "kg", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "0", "0", "Rp. 0.00", "0%"],
@@ -335,15 +325,31 @@
       ["34", "Jagung Tongkol", "kg", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "0", "0", "Rp. 0.00", "0%"],
     ];
 
+    const appendedData = pasarData.map(item => ({
+      text: item.name,
+      colspan: 1,
+      rowspan: 1
+    }));
+
+    // Find the index of the "Satuan" and "Bulan Sebelumnya" rows
+    let satuanIndex = colHeadData.findIndex(item => item.text === 'Satuan');
+    let bulanSebelumnyaIndex = colHeadData.findIndex(item => item.text === 'Bulan Sebelumnya');
+
+    // Insert the new data after the "Satuan" row
+    colHeadData.splice(satuanIndex + 1, 0, ...appendedData);
+
     const temp = [];
-    rekapData.forEach((item, index) => {
+    groupKomoditas.forEach((item, index) => {
       const arr = [
         index + 1,
         item.komoditas_name,
         item.komoditas_unit,
       ];
       pasarData.forEach((row, index) => {
-        arr.push(0);
+        const cell = rekapData.find((innerRow) => {
+          return innerRow.komoditas_name == item.komoditas_name && innerRow.pasar_name == row.name
+        });
+        arr.push(cell ? cell.value ? cell.value : 0 : 0);
       });
       const bulanSebelumnya = 0;
       const bulanIni = 0;

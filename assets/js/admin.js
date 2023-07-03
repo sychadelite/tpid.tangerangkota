@@ -20,10 +20,12 @@ $("input[data-bootstrap-switch]").each(function(){
 
 //Date picker
 $('#rekapvaluedate_add').datetimepicker({
-  format: 'L'
+  // format: 'L'
+  format: 'YYYY-MM'
 });
 $('#rekapvaluedate_edit').datetimepicker({
-  format: 'L'
+  // format: 'L'
+  format: 'YYYY-MM'
 });
 
 /* EVENTS */

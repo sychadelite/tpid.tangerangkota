@@ -23,7 +23,7 @@ class Komoditasrekapitulasi_model extends CI_Model
     $this->db->join('m_komoditas_type as D', 'B.`type_id` = D.`id`', 'inner');
     $this->db->join('m_komoditas_cluster as E', 'B.`cluster_id` = E.`id`', 'inner');
     if ($yearMonth) {
-      $this->db->where("DATE_FORMAT(A.date, '%Y-%m') =", $yearMonth);
+      $this->db->where("date", $yearMonth);
     }
     $query = $this->db->get();
 
@@ -77,6 +77,27 @@ class Komoditasrekapitulasi_model extends CI_Model
     $this->db->where($this->table . '.' . $field, $value);
     $data = $this->db->get();
     return $data->result();
+  }
+
+  public function get_all_group_komoditas($yearMonth = null)
+  {
+    $this->db->select('
+    A.komoditas_id,
+    B.name as komoditas_name, B.unit as komoditas_unit,
+    D.name as komoditas_type_name,
+    E.name as komoditas_cluster_name
+  ');
+    $this->db->from($this->table . ' as A');
+    $this->db->join('m_komoditas as B', 'A.komoditas_id = B.id', 'inner');
+    $this->db->join('m_komoditas_type as D', 'B.type_id = D.id', 'inner');
+    $this->db->join('m_komoditas_cluster as E', 'B.cluster_id = E.id', 'inner');
+    $this->db->group_by("A.komoditas_id, B.name, B.unit, D.name, E.name");
+    if ($yearMonth) {
+      $this->db->where("A.date", $yearMonth);
+    }
+    $query = $this->db->get();
+
+    return $query->result();
   }
 
   public function update_data($where, $data)

@@ -481,6 +481,33 @@
           className: 'dt-center',
         },
         {
+          title: "Nilai",
+          data: "value",
+          className: 'dt-center',
+          render: function(data, type, row, meta) {
+            return `
+            <p>Rp.${row.value}</p>
+            `;
+          }
+        },
+        {
+          title: "Periode",
+          data: "date",
+          className: 'dt-center',
+          render: function(data, type, row, meta) {
+            const dateStr = row.date;
+            const date = new Date(dateStr);
+            const options = {
+              year: 'numeric',
+              month: 'long'
+            };
+            const formattedDate = date.toLocaleDateString('id-ID', options);
+            return `
+            <p>${formattedDate}</p>
+            `;
+          }
+        },
+        {
           title: "Nama Pasar",
           data: "pasar_name",
           className: 'dt-head-center dt-body-left',

@@ -168,7 +168,7 @@ class Komoditasrekapitulasi extends MY_Controller
             "komoditas_id" => $this->input->post('komoditas_id'),
             "pasar_id" => $this->input->post('pasar_id'),
             "value" => $this->input->post('value'),
-            "date" => date('Y-m-d', strtotime($this->input->post('date'))),
+            "date" => date('Y-m', strtotime($this->input->post('date'))),
           ];
 
           $is_unique_komoditas_rekapitulasi = $this->KomoditasRekapitulasiModel->get_unique_data('komoditas_id', $payload['komoditas_id'], 'pasar_id', $payload['pasar_id'], 'date', $payload['date']);
@@ -270,7 +270,7 @@ class Komoditasrekapitulasi extends MY_Controller
             "komoditas_id" => $this->input->post('komoditas_id'),
             "pasar_id" => $this->input->post('pasar_id'),
             "value" => $this->input->post('value'),
-            "date" => date('Y-m-d', strtotime($this->input->post('date'))),
+            "date" => date('Y-m', strtotime($this->input->post('date'))),
           ];
 
           $is_unique_komoditas_rekapitulasi = $this->KomoditasRekapitulasiModel->get_unique_data('komoditas_id', $payload['komoditas_id'], 'pasar_id', $payload['pasar_id'], 'date', $payload['date']);
